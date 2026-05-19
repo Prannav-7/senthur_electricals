@@ -1,0 +1,7 @@
+/* WishlistDrawer uses CartDrawer.css for shared styles */
+.wishlist-item__cart-btn {
+  font-size: 0.76rem;
+  padding: 7px 12px;
+  gap: 5px;
+  white-space: nowrap;
+}
