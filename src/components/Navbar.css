@@ -158,7 +158,8 @@
   transition: all var(--transition-fast);
 }
 
-.navbar__mobile-link:hover {
+.navbar__mobile-link:hover,
+.navbar__mobile-link--active {
   color: var(--orange-primary);
   background: rgba(249, 115, 22, 0.08);
 }

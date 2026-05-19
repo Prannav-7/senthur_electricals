@@ -302,6 +302,29 @@
   pointer-events: none;
 }
 
+/* View All CTA (preview mode) */
+.products__view-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.products__view-all-hint {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.products__view-all-btn {
+  font-size: 1rem;
+  padding: 16px 40px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 24px rgba(249,115,22,0.35);
+}
+
 @media (max-width: 640px) {
   .products__grid-v2 {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

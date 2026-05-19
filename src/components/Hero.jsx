@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Phone, MapPin, ChevronDown, Zap, Star } from 'lucide-react';
 import './Hero.css';
 
@@ -41,9 +42,9 @@ export default function Hero() {
             <a href="tel:9677334525" className="btn-primary" id="hero-call-btn">
               <Phone size={16} /> Call Now
             </a>
-            <a href="#products" className="btn-outline" id="hero-products-btn">
+            <Link to="/products" className="btn-outline" id="hero-products-btn">
               View Products
-            </a>
+            </Link>
           </div>
 
           <div className="hero__address">
@@ -69,9 +70,9 @@ export default function Hero() {
         </div>
       </div>
 
-      <a href="#about" className="hero__scroll-cue" aria-label="Scroll down">
+      <Link to="/about" className="hero__scroll-cue" aria-label="Scroll down">
         <ChevronDown size={20} />
-      </a>
+      </Link>
     </section>
   );
 }

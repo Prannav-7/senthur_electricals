@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Heart, Zap } from 'lucide-react';
+import { ShoppingCart, Heart, Zap, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import './Products.css';
@@ -208,50 +209,67 @@ function ProductCard({ product }) {
   );
 }
 
-export default function Products() {
+// preview=true → homepage mode: 10 products, no filters, View All button
+export default function Products({ preview = false }) {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filtered = activeCategory === 'all'
-    ? products
-    : products.filter(p => p.category === activeCategory);
+  const filtered = preview
+    ? products.slice(0, 10)
+    : (activeCategory === 'all'
+        ? products
+        : products.filter(p => p.category === activeCategory));
 
   return (
     <section id="products" className="products">
       <div className="container">
         <div className="products__header">
-          <div className="badge">Our Products</div>
+          <div className="badge">{preview ? 'Featured Products' : 'Our Products'}</div>
           <h2 className="section-title">
             What We <span className="products__title-accent">Offer</span>
           </h2>
           <div className="divider" style={{ margin: '12px auto' }} />
           <p className="section-subtitle" style={{ margin: '0 auto' }}>
-            50+ premium products across 5 categories — all from India's most
-            trusted brands.
+            {preview
+              ? 'A glimpse of our best-selling electrical & hardware products.'
+              : '50+ premium products across 5 categories — all from India\'s most trusted brands.'}
           </p>
         </div>
 
-        <div className="products__filters">
-          {categories.map(cat => (
-            <button
-              key={cat.id}
-              className={`products__filter-btn ${activeCategory === cat.id ? 'products__filter-btn--active' : ''}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              {cat.label}
-              {cat.id !== 'all' && (
-                <span className="products__filter-count">
-                  {products.filter(p => p.category === cat.id).length}
-                </span>
-              )}
-            </button>
-          ))}
-        </div>
+        {/* Category filters — only on full page */}
+        {!preview && (
+          <div className="products__filters">
+            {categories.map(cat => (
+              <button
+                key={cat.id}
+                className={`products__filter-btn ${activeCategory === cat.id ? 'products__filter-btn--active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                {cat.label}
+                {cat.id !== 'all' && (
+                  <span className="products__filter-count">
+                    {products.filter(p => p.category === cat.id).length}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="products__grid-v2">
           {filtered.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+
+        {/* View All CTA — only in preview mode */}
+        {preview && (
+          <div className="products__view-all">
+            <p className="products__view-all-hint">Showing 10 of 50+ products</p>
+            <Link to="/products" className="btn-primary products__view-all-btn" id="view-all-products-btn">
+              View All Products <ArrowRight size={16} />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

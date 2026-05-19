@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Zap, ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import './Navbar.css';
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Products', href: '#products' },
-  { label: 'Brands', href: '#brands' },
-  { label: 'Why Us', href: '#whyus' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home',     to: '/' },
+  { label: 'About',    to: '/about' },
+  { label: 'Products', to: '/products' },
+  { label: 'Brands',   to: '/brands' },
+  { label: 'Why Us',   to: '/whyus' },
+  { label: 'Contact',  to: '/contact' },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('Home');
+  const [scrolled, setScrolled]   = useState(false);
+  const [menuOpen, setMenuOpen]   = useState(false);
+  const { pathname }              = useLocation();
 
-  const { count: cartCount, setIsOpen: openCart } = useCart();
-  const { count: wishCount, setIsOpen: openWishlist } = useWishlist();
+  const { count: cartCount, setIsOpen: openCart }         = useCart();
+  const { count: wishCount, setIsOpen: openWishlist }     = useWishlist();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -27,31 +28,39 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
+
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
-        <a href="#home" className="navbar__brand">
+        {/* Brand */}
+        <Link to="/" className="navbar__brand">
           <div className="navbar__logo-icon"><Zap size={20} /></div>
           <div>
             <span className="navbar__logo-name">SENTHUR</span>
             <span className="navbar__logo-sub">Electricals & Hardwares</span>
           </div>
-        </a>
+        </Link>
 
+        {/* Desktop Links */}
         <ul className="navbar__links">
           {navLinks.map(link => (
             <li key={link.label}>
-              <a
-                href={link.href}
-                className={`navbar__link ${active === link.label ? 'navbar__link--active' : ''}`}
-                onClick={() => setActive(link.label)}
+              <NavLink
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  `navbar__link ${isActive ? 'navbar__link--active' : ''}`
+                }
               >
                 {link.label}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>
 
+        {/* Actions */}
         <div className="navbar__actions">
           <button className="navbar__icon-btn" onClick={() => openWishlist(true)} aria-label="Wishlist" id="nav-wishlist-btn">
             <Heart size={18} />
@@ -64,26 +73,26 @@ export default function Navbar() {
           <a href="tel:9677334525" className="btn-primary navbar__cta">Call Us</a>
         </div>
 
-        <button
-          className="navbar__hamburger"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
+        {/* Hamburger */}
+        <button className="navbar__hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="navbar__mobile-menu">
           {navLinks.map(link => (
-            <a
+            <NavLink
               key={link.label}
-              href={link.href}
-              className="navbar__mobile-link"
-              onClick={() => setMenuOpen(false)}
+              to={link.to}
+              end={link.to === '/'}
+              className={({ isActive }) =>
+                `navbar__mobile-link ${isActive ? 'navbar__mobile-link--active' : ''}`
+              }
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
           <div className="navbar__mobile-actions">
             <button className="navbar__icon-btn" onClick={() => { openWishlist(true); setMenuOpen(false); }}>

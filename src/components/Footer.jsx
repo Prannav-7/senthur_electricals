@@ -1,5 +1,6 @@
 import React from 'react';
-import { Zap, Phone, MapPin, Mail, ArrowUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Zap, Phone, MapPin, ArrowUp } from 'lucide-react';
 import './Footer.css';
 
 export default function Footer() {
@@ -35,12 +36,17 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="footer__col">
             <h4 className="footer__col-title">Quick Links</h4>
-            <ul className="footer__links">
-              {['Home', 'About', 'Products', 'Brands', 'Why Us', 'Contact'].map(l => (
-                <li key={l}>
-                  <a href={`#${l.toLowerCase().replace(' ', '')}`} className="footer__link">
-                    {l}
-                  </a>
+          <ul className="footer__links">
+              {[
+                { label: 'Home',     to: '/' },
+                { label: 'About',    to: '/about' },
+                { label: 'Products', to: '/products' },
+                { label: 'Brands',   to: '/brands' },
+                { label: 'Why Us',   to: '/whyus' },
+                { label: 'Contact',  to: '/contact' },
+              ].map(l => (
+                <li key={l.label}>
+                  <Link to={l.to} className="footer__link">{l.label}</Link>
                 </li>
               ))}
             </ul>
