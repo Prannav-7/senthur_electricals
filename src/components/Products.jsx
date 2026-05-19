@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { ShoppingCart, Heart, Zap, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { ShoppingCart, Heart, Zap, ArrowRight, X } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import './Products.css';
 
-const categories = [
+export const categories = [
   { id: 'all',     label: 'All Products' },
   { id: 'wiring',  label: 'Wiring & Cables' },
   { id: 'switches',label: 'Switches & Sockets' },
@@ -14,7 +14,7 @@ const categories = [
   { id: 'safety',  label: 'Safety & Protection' },
 ];
 
-const products = [
+export const products = [
   // ── WIRING ──
   { id: 1,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Copper Flexible Wire 1.5 sq mm', brand: 'Polycab', price: 890,  originalPrice: 1100, tag: 'Bestseller',
     desc: 'Single-core copper flexible wire, ideal for household wiring. Heat & moisture resistant PVC insulation.' },
@@ -142,19 +142,19 @@ function ProductCard({ product }) {
   const wishlisted = isWishlisted(product.id);
 
   const handleAddToCart = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); e.preventDefault();
     addToCart(product);
     setToastVisible(true);
     setTimeout(() => setToastVisible(false), 1800);
   };
 
   const handleWishlist = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); e.preventDefault();
     toggle(product);
   };
 
   const handleBuyNow = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); e.preventDefault();
     const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\nPrice: ₹${product.price.toLocaleString()}\n\nPlease confirm availability.`;
     window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
   };
@@ -165,25 +165,29 @@ function ProductCard({ product }) {
     <div className="product-card-v2">
       <AddedToast show={toastVisible} name={product.name} />
 
-      {/* Image */}
-      <div className="pcv2__img-wrap">
-        <img src={product.image} alt={product.name} className="pcv2__img" loading="lazy" />
-        <div className="pcv2__overlay" />
-        <span className="pcv2__tag">{product.tag}</span>
-        {discount > 0 && <span className="pcv2__discount">-{discount}%</span>}
-        <button
-          className={`pcv2__wishlist-btn ${wishlisted ? 'pcv2__wishlist-btn--active' : ''}`}
-          onClick={handleWishlist}
-          aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-        >
-          <Heart size={16} fill={wishlisted ? 'currentColor' : 'none'} />
-        </button>
-      </div>
+      {/* Clickable image */}
+      <Link to={`/products/${product.id}`} className="pcv2__img-link">
+        <div className="pcv2__img-wrap">
+          <img src={product.image} alt={product.name} className="pcv2__img" loading="lazy" />
+          <div className="pcv2__overlay" />
+          <span className="pcv2__tag">{product.tag}</span>
+          {discount > 0 && <span className="pcv2__discount">-{discount}%</span>}
+          <div className="pcv2__view-overlay">View Details →</div>
+        </div>
+      </Link>
+
+      <button
+        className={`pcv2__wishlist-btn ${wishlisted ? 'pcv2__wishlist-btn--active' : ''}`}
+        onClick={handleWishlist}
+        aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+      >
+        <Heart size={16} fill={wishlisted ? 'currentColor' : 'none'} />
+      </button>
 
       {/* Body */}
       <div className="pcv2__body">
         <div className="pcv2__brand">{product.brand}</div>
-        <h3 className="pcv2__name">{product.name}</h3>
+        <Link to={`/products/${product.id}`}><h3 className="pcv2__name">{product.name}</h3></Link>
         <p className="pcv2__desc">{product.desc}</p>
 
         <div className="pcv2__price-row">
@@ -191,7 +195,6 @@ function ProductCard({ product }) {
           <span className="pcv2__original">₹{product.originalPrice.toLocaleString()}</span>
         </div>
 
-        {/* Actions */}
         <div className="pcv2__actions">
           <button className="pcv2__btn pcv2__btn--cart" onClick={handleAddToCart} id={`cart-btn-${product.id}`}>
             <ShoppingCart size={14} /> Cart
@@ -209,15 +212,43 @@ function ProductCard({ product }) {
   );
 }
 
+// Unique brand list derived from products
+const allBrands = ['All Brands', ...Array.from(new Set(products.map(p => p.brand)))];
+
+const brandColors = {
+  Polycab:  '#e63946',
+  Legrand:  '#1d7dd8',
+  Crompton: '#f4a261',
+  Aquatek:  '#2a9d8f',
+  Plato:    '#8338ec',
+  Ventac:   '#06d6a0',
+  Lisha:    '#f72585',
+  Vasavi:   '#fb8500',
+};
+
 // preview=true → homepage mode: 10 products, no filters, View All button
 export default function Products({ preview = false }) {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchParams] = useSearchParams();
+  const urlCat = searchParams.get('cat') || 'all';
+
+  const [activeCategory, setActiveCategory] = useState(urlCat);
+  const [activeBrand,    setActiveBrand]    = useState('All Brands');
+
+  // Sync when URL ?cat= changes (e.g. from footer links)
+  useEffect(() => {
+    if (!preview) setActiveCategory(searchParams.get('cat') || 'all');
+  }, [searchParams, preview]);
 
   const filtered = preview
     ? products.slice(0, 10)
-    : (activeCategory === 'all'
-        ? products
-        : products.filter(p => p.category === activeCategory));
+    : products.filter(p => {
+        const catMatch   = activeCategory === 'all' || p.category === activeCategory;
+        const brandMatch = activeBrand    === 'All Brands' || p.brand === activeBrand;
+        return catMatch && brandMatch;
+      });
+
+  const clearFilters = () => { setActiveCategory('all'); setActiveBrand('All Brands'); };
+  const hasFilter    = activeCategory !== 'all' || activeBrand !== 'All Brands';
 
   return (
     <section id="products" className="products">
@@ -235,30 +266,91 @@ export default function Products({ preview = false }) {
           </p>
         </div>
 
-        {/* Category filters — only on full page */}
+        {/* Filters — only on full page */}
         {!preview && (
-          <div className="products__filters">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                className={`products__filter-btn ${activeCategory === cat.id ? 'products__filter-btn--active' : ''}`}
-                onClick={() => setActiveCategory(cat.id)}
-              >
-                {cat.label}
-                {cat.id !== 'all' && (
-                  <span className="products__filter-count">
-                    {products.filter(p => p.category === cat.id).length}
+          <div className="products__all-filters">
+            {/* Category row */}
+            <div className="products__filter-row">
+              <span className="products__filter-label">Category</span>
+              <div className="products__filters">
+                {categories.map(cat => (
+                  <button
+                    key={cat.id}
+                    className={`products__filter-btn ${activeCategory === cat.id ? 'products__filter-btn--active' : ''}`}
+                    onClick={() => setActiveCategory(cat.id)}
+                  >
+                    {cat.label}
+                    {cat.id !== 'all' && (
+                      <span className="products__filter-count">
+                        {products.filter(p => p.category === cat.id).length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Brand row */}
+            <div className="products__filter-row">
+              <span className="products__filter-label">Brand</span>
+              <div className="products__filters">
+                {allBrands.map(brand => (
+                  <button
+                    key={brand}
+                    className={`products__filter-btn products__brand-btn ${
+                      activeBrand === brand ? 'products__filter-btn--active' : ''
+                    }`}
+                    style={brand !== 'All Brands' && activeBrand === brand
+                      ? { background: brandColors[brand], borderColor: brandColors[brand], color: '#fff' }
+                      : brand !== 'All Brands'
+                        ? { '--dot-color': brandColors[brand] }
+                        : {}}
+                    onClick={() => setActiveBrand(brand)}
+                  >
+                    {brand !== 'All Brands' && (
+                      <span
+                        className="products__brand-dot"
+                        style={{ background: brandColors[brand] }}
+                      />
+                    )}
+                    {brand}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Active filter summary + clear */}
+            {hasFilter && (
+              <div className="products__active-filters">
+                {activeCategory !== 'all' && (
+                  <span className="products__active-chip">
+                    {categories.find(c => c.id === activeCategory)?.label}
+                    <button onClick={() => setActiveCategory('all')} aria-label="Remove category filter"><X size={11} /></button>
                   </span>
                 )}
-              </button>
-            ))}
+                {activeBrand !== 'All Brands' && (
+                  <span className="products__active-chip" style={{ '--chip-color': brandColors[activeBrand] }}>
+                    {activeBrand}
+                    <button onClick={() => setActiveBrand('All Brands')} aria-label="Remove brand filter"><X size={11} /></button>
+                  </span>
+                )}
+                <span className="products__result-count">{filtered.length} product{filtered.length !== 1 ? 's' : ''} found</span>
+                <button className="products__clear-btn" onClick={clearFilters}>Clear all</button>
+              </div>
+            )}
           </div>
         )}
 
+        {/* Grid */}
         <div className="products__grid-v2">
-          {filtered.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {filtered.length === 0 ? (
+            <div className="products__empty">
+              <p>No products found for the selected filters.</p>
+              <button className="btn-outline" onClick={clearFilters}>Clear Filters</button>
+            </div>
+          ) : (
+            filtered.map(product => <ProductCard key={product.id} product={product} />)
+          )}
         </div>
 
         {/* View All CTA — only in preview mode */}

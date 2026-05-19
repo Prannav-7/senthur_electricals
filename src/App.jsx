@@ -5,6 +5,7 @@ import { WishlistProvider } from './context/WishlistContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import ProductsPage from './pages/ProductsPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import AboutPage from './pages/AboutPage';
 import BrandsPage from './pages/BrandsPage';
 import WhyUsPage from './pages/WhyUsPage';
@@ -19,6 +20,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<ProductsPage />} />
+              <Route path="/products/:id" element={<ProductDetailPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/brands" element={<BrandsPage />} />
               <Route path="/whyus" element={<WhyUsPage />} />

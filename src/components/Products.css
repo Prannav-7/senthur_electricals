@@ -20,26 +20,52 @@
   background-clip: text;
 }
 
-/* ── Filter Tabs ── */
+/* ── Filter System ── */
+.products__all-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+  padding: 20px 24px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-lg);
+}
+
+.products__filter-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.products__filter-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
 .products__filters {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 40px;
+  gap: 8px;
 }
 
 .products__filter-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   color: var(--text-secondary);
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  padding: 9px 20px;
+  padding: 7px 16px;
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -52,19 +78,95 @@
   background: var(--gradient-primary);
   border-color: transparent;
   color: white;
-  box-shadow: 0 4px 16px rgba(249,115,22,0.35);
+  box-shadow: 0 4px 14px rgba(249,115,22,0.35);
 }
 
 .products__filter-count {
   background: rgba(255,255,255,0.2);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  padding: 1px 7px;
+  padding: 1px 6px;
   border-radius: var(--radius-full);
 }
 .products__filter-btn--active .products__filter-count {
   background: rgba(255,255,255,0.25);
 }
+
+/* Brand dots */
+.products__brand-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Active filter chips */
+.products__active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.products__active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: color-mix(in srgb, var(--chip-color, var(--orange-primary)) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--chip-color, var(--orange-primary)) 35%, transparent);
+  color: var(--chip-color, var(--orange-primary));
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.products__active-chip button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+.products__active-chip button:hover { opacity: 1; }
+
+.products__result-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+.products__clear-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color var(--transition-fast);
+}
+.products__clear-btn:hover { color: #f87171; }
+
+/* Empty state */
+.products__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-muted);
+}
+.products__empty p { font-size: 1rem; }
 
 /* ── Product Grid ── */
 .products__grid-v2 {
@@ -91,12 +193,32 @@
 }
 
 /* Image */
+.pcv2__img-link { display: block; text-decoration: none; }
+
 .pcv2__img-wrap {
   position: relative;
   height: 200px;
   overflow: hidden;
   background: var(--dark-700);
 }
+
+.pcv2__view-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(249,115,22,0.75);
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.product-card-v2:hover .pcv2__view-overlay { opacity: 1; }
+
+.pcv2__name { color: var(--text-primary); }
+.pcv2__name:hover { color: var(--orange-primary); }
 
 .pcv2__img {
   width: 100%;

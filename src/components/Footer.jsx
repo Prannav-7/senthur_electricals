@@ -56,9 +56,22 @@ export default function Footer() {
           <div className="footer__col">
             <h4 className="footer__col-title">Products</h4>
             <ul className="footer__links">
-              {['PVC Cables & Wires', 'Modular Switches', 'Conduit Pipes', 'LED Lighting', 'MCBs & Breakers', 'Fan Regulators'].map(p => (
-                <li key={p}>
-                  <span className="footer__link">{p}</span>
+              {[
+                { label: 'PVC Cables & Wires', cat: 'wiring'   },
+                { label: 'Modular Switches',   cat: 'switches' },
+                { label: 'Conduit Pipes',       cat: 'pipes'    },
+                { label: 'LED Lighting',        cat: 'lighting' },
+                { label: 'MCBs & Breakers',     cat: 'safety'   },
+                { label: 'Fan Regulators',      cat: 'switches' },
+              ].map(p => (
+                <li key={p.label}>
+                  <Link
+                    to={`/products?cat=${p.cat}`}
+                    className="footer__link"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  >
+                    {p.label}
+                  </Link>
                 </li>
               ))}
             </ul>
