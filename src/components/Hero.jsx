@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MapPin, ChevronDown, Zap, Star } from 'lucide-react';
+import homeImg from '../assets/image/home.jpeg';
 import './Hero.css';
 
 export default function Hero() {
@@ -55,7 +56,7 @@ export default function Hero() {
 
         <div className="hero__right">
           <div className="hero__img-wrapper animate-float">
-            <img src="/hero_banner.png" alt="Senthur Electricals & Hardwares products" className="hero__img" />
+            <img src={homeImg} alt="Senthur Electricals & Hardwares products" className="hero__img" />
             <div className="hero__img-glow" />
           </div>
 

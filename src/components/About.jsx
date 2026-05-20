@@ -1,4 +1,5 @@
 import React from 'react';
+import storeImg from '../assets/image/head.png';
 import { Award, Users, Clock, ThumbsUp } from 'lucide-react';
 import './About.css';
 
@@ -59,7 +60,7 @@ export default function About() {
 
             {/* Real store photo */}
             <div className="about__store-photo-wrap">
-              <img src="/store.jpg" alt="Senthur Electricals & Hardwares store interior" className="about__store-photo" />
+              <img src={storeImg} alt="Senthur Electricals & Hardwares store interior" className="about__store-photo" />
               <div className="about__store-photo-label">Our Store — Vellakovil</div>
             </div>
 
