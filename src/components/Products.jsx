@@ -6,12 +6,13 @@ import { useWishlist } from '../context/WishlistContext';
 import './Products.css';
 
 export const categories = [
-  { id: 'all',     label: 'All Products' },
-  { id: 'wiring',  label: 'Wiring & Cables' },
-  { id: 'switches',label: 'Switches & Sockets' },
-  { id: 'pipes',   label: 'Pipes & Fittings' },
-  { id: 'lighting',label: 'Lighting' },
-  { id: 'safety',  label: 'Safety & Protection' },
+  { id: 'all',      label: 'All Products' },
+  { id: 'wiring',   label: 'Wiring & Cables' },
+  { id: 'switches', label: 'Switches & Sockets' },
+  { id: 'fans',     label: 'Fans' },
+  { id: 'pipes',    label: 'Pipes & Fittings' },
+  { id: 'lighting', label: 'Lighting' },
+  { id: 'safety',   label: 'Safety & Protection' },
 ];
 
 export const products = [
@@ -124,6 +125,92 @@ export const products = [
     desc: 'Nylon cable ties 300mm x 4.8mm. Heat resistant. Self-locking. 100-piece pack.' },
   { id: 50, category: 'safety',   image: '/cat_safety.png',   name: 'RCBO 16A 30mA (MCB+RCCB)',        brand: 'Legrand', price: 1450, originalPrice: 1800, tag: 'Combo',
     desc: 'Combined MCB+RCCB device. Overload, short-circuit and earth fault protection.' },
+
+  // ── SWITCHES: GM, Havells, Anchor, Fybros, Lisha ──
+  { id: 51, category: 'switches', image: '/cat_switches.png', name: 'GM 6A One-Way Modular Switch',     brand: 'GM',      price: 95,  originalPrice: 120,  tag: 'Popular',
+    desc: 'GM 6A one-way modular switch with silver contacts. Sleek gloss-white finish for residential use.' },
+  { id: 52, category: 'switches', image: '/cat_switches.png', name: 'GM 16A Heavy Duty Switch',         brand: 'GM',      price: 145, originalPrice: 180,  tag: 'Heavy Duty',
+    desc: 'GM 16A two-way heavy duty switch. Ideal for ACs, geysers and high-load circuits.' },
+  { id: 53, category: 'switches', image: '/cat_switches.png', name: 'GM 6A 3-Pin Socket with Shutter',  brand: 'GM',      price: 128, originalPrice: 160,  tag: 'Safe',
+    desc: 'GM 6A socket with child-safety shutters. Universal pin acceptance.' },
+  { id: 54, category: 'switches', image: '/cat_switches.png', name: 'Havells Crabtree 6A Switch',       brand: 'Havells', price: 210, originalPrice: 260,  tag: 'Premium',
+    desc: 'Havells Crabtree modular switch with piano-style rocker. ISI marked, 6A rated.' },
+  { id: 55, category: 'switches', image: '/cat_switches.png', name: 'Havells 16A 3-Pin Socket',         brand: 'Havells', price: 285, originalPrice: 340,  tag: 'Reliable',
+    desc: 'Havells 16A heavy-duty socket with safety shutters. Fits all standard modular plates.' },
+  { id: 56, category: 'switches', image: '/cat_switches.png', name: 'Havells Electronic Fan Dimmer',    brand: 'Havells', price: 380, originalPrice: 460,  tag: 'Energy Saving',
+    desc: 'Havells electronic fan speed dimmer. Step-less speed control, no energy waste.' },
+  { id: 57, category: 'switches', image: '/cat_switches.png', name: 'Anchor Roma 6A One-Way Switch',    brand: 'Anchor',  price: 88,  originalPrice: 110,  tag: 'Affordable',
+    desc: 'Anchor Roma classic 6A modular switch. Most popular choice for residential projects.' },
+  { id: 58, category: 'switches', image: '/cat_switches.png', name: 'Anchor Roma 6A 3-Pin Socket',      brand: 'Anchor',  price: 112, originalPrice: 140,  tag: 'Value',
+    desc: 'Anchor Roma 3-pin socket with shutters. Snap-fit to standard modular boxes.' },
+  { id: 59, category: 'switches', image: '/cat_switches.png', name: 'Fybros 6A Modular Switch',         brand: 'Fybros',  price: 78,  originalPrice: 98,   tag: 'Budget',
+    desc: 'Fybros 6A modular switch. Sturdy polycarbonate body. ISI marked. Budget-friendly.' },
+  { id: 60, category: 'switches', image: '/cat_switches.png', name: 'Fybros 16A Socket Outlet',         brand: 'Fybros',  price: 130, originalPrice: 165,  tag: 'Economy',
+    desc: 'Fybros 16A socket with child safety shutters. Snap-fit installation.' },
+
+  // ── FANS: Havells, Atomberg, Orient Electric, Crompton ──
+  { id: 61, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Leganza Ceiling Fan 1200mm', brand: 'Havells',  price: 2800, originalPrice: 3400, tag: 'Bestseller',
+    desc: 'Havells Leganza 1200mm ceiling fan. 72W motor, 3 metallic blades, 5-year warranty.' },
+  { id: 62, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Efficiencia Neo BLDC 1200mm', brand: 'Havells', price: 4500, originalPrice: 5500, tag: 'Energy Saving',
+    desc: 'Havells BLDC ceiling fan — only 28W consumption. Remote included. 5-star BEE rated.' },
+  { id: 63, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Sprint Table Fan 400mm',    brand: 'Havells',  price: 1450, originalPrice: 1800, tag: 'Table Fan',
+    desc: 'Havells Sprint 400mm table fan. 55W, 3-speed settings, 2-year warranty.' },
+  { id: 64, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Renesa 1200mm BLDC Fan',   brand: 'Atomberg', price: 3800, originalPrice: 4600, tag: 'Smart',
+    desc: 'Atomberg Renesa 28W BLDC fan with remote and timer. 5-star rated, 5-year warranty.' },
+  { id: 65, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Efficio+ 1200mm BLDC',     brand: 'Atomberg', price: 3200, originalPrice: 3900, tag: 'Popular',
+    desc: 'Atomberg Efficio+ with LED indicator, 6-speed remote. Saves 35% energy vs normal fans.' },
+  { id: 66, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Apex-FX 1200mm',    brand: 'Orient Electric', price: 2400, originalPrice: 2900, tag: 'Durable',
+    desc: 'Orient Apex-FX 1200mm with double ball bearing motor. 3-speed pull-chain.' },
+  { id: 67, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Aeroquiet 1200mm',  brand: 'Orient Electric', price: 2950, originalPrice: 3600, tag: 'Silent',
+    desc: 'Orient Aeroquiet — ultra-silent at 36 dB. 3-year warranty, anti-dust coating.' },
+  { id: 68, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Stand-17 Pedestal Fan 400mm',brand: 'Orient Electric', price: 1800, originalPrice: 2200, tag: 'Stand Fan',
+    desc: 'Orient 400mm pedestal fan with adjustable height, oscillation and 5-speed settings.' },
+  { id: 69, category: 'fans',     image: '/cat_lighting.png', name: 'Crompton Aura Prime 1200mm',        brand: 'Crompton', price: 2200, originalPrice: 2700, tag: 'Reliable',
+    desc: 'Crompton Aura Prime 1200mm ceiling fan. 74W motor, anti-dust coating. 2-year warranty.' },
+  { id: 70, category: 'fans',     image: '/cat_lighting.png', name: 'Crompton Hill Briz Exhaust Fan 6"', brand: 'Crompton', price: 650,  originalPrice: 820,  tag: 'Exhaust',
+    desc: 'Crompton 6-inch exhaust fan for kitchens and bathrooms. Low noise, easy install.' },
+
+  // ── LIGHTING: Philips, Havells, Wipro, Panasonic, Orient ──
+  { id: 71, category: 'lighting', image: '/cat_lighting.png', name: 'Philips LED Bulb 9W Warm White',    brand: 'Philips',  price: 110, originalPrice: 140,  tag: 'Trusted',
+    desc: 'Philips 9W B22 LED bulb, 950 lm, 3000K warm white. 2-year replacement warranty.' },
+  { id: 72, category: 'lighting', image: '/cat_lighting.png', name: 'Philips Stellar Bright Tube 20W',   brand: 'Philips',  price: 360, originalPrice: 450,  tag: 'Office',
+    desc: 'Philips 20W LED batten 4ft. 2200 lm, cool daylight 6500K. Instant start, no flicker.' },
+  { id: 73, category: 'lighting', image: '/cat_lighting.png', name: 'Philips LED Flood Light 20W',       brand: 'Philips',  price: 680, originalPrice: 850,  tag: 'Outdoor',
+    desc: 'Philips 20W IP65 flood light. 2200 lm cool white. Ideal for security lighting.' },
+  { id: 74, category: 'lighting', image: '/cat_lighting.png', name: 'Havells Adore LED Downlight 7W',    brand: 'Havells',  price: 245, originalPrice: 310,  tag: 'Premium',
+    desc: 'Havells Adore 7W round LED downlight. Cut-out 90mm. Cool white 6500K. IP20.' },
+  { id: 75, category: 'lighting', image: '/cat_lighting.png', name: 'Havells Ludo LED Panel Light 18W',  brand: 'Havells',  price: 680, originalPrice: 860,  tag: 'Panel',
+    desc: 'Havells Ludo 18W slim LED panel. 1800 lm, neutral white 4000K. Recess/surface mount.' },
+  { id: 76, category: 'lighting', image: '/cat_lighting.png', name: 'Wipro Garnet LED Bulb 9W',          brand: 'Wipro',    price: 98,  originalPrice: 125,  tag: 'Value',
+    desc: 'Wipro Garnet 9W LED bulb. 900 lm, B22, warm white 3000K. 2-year warranty.' },
+  { id: 77, category: 'lighting', image: '/cat_lighting.png', name: 'Wipro LED Tube 18W 4ft',            brand: 'Wipro',    price: 320, originalPrice: 400,  tag: 'Popular',
+    desc: 'Wipro 18W 4ft LED batten. 1800 lm daylight output. Energy-star rated.' },
+  { id: 78, category: 'lighting', image: '/cat_lighting.png', name: 'Panasonic LED Bulb 10W Cool Day',   brand: 'Panasonic',price: 120, originalPrice: 155,  tag: 'Reliable',
+    desc: 'Panasonic 10W LED bulb. 1000 lm, B22, cool daylight. 25,000 hr rated life.' },
+  { id: 79, category: 'lighting', image: '/cat_lighting.png', name: 'Orient Electric LED Bulb 12W',      brand: 'Orient',   price: 105, originalPrice: 135,  tag: 'Bright',
+    desc: 'Orient 12W LED bulb. 1200 lm, B22, cool white 6500K. ISI marked.' },
+  { id: 80, category: 'lighting', image: '/cat_lighting.png', name: 'Wipro LED Strip 5m RGB+Remote',     brand: 'Wipro',    price: 560, originalPrice: 700,  tag: 'Decorative',
+    desc: 'Wipro 5m RGB LED strip with remote. Adhesive backed, 12V DC, for home decor.' },
+
+  // ── WIRING: Finolex, KEI, Havells ──
+  { id: 81, category: 'wiring',   image: '/cat_wiring.png',   name: 'Finolex 1.5 sq mm PVC Wire',       brand: 'Finolex',  price: 820, originalPrice: 1020, tag: 'Quality',
+    desc: 'Finolex 1.5 sq mm flexible copper wire. FR PVC insulation. IS 694 certified.' },
+  { id: 82, category: 'wiring',   image: '/cat_wiring.png',   name: 'Finolex 2.5 sq mm FR Wire',        brand: 'Finolex',  price: 1180, originalPrice: 1450,tag: 'Popular',
+    desc: 'Finolex 2.5 sq mm wire for power circuits. Smooth pull-through PVC sheathing.' },
+  { id: 83, category: 'wiring',   image: '/cat_wiring.png',   name: 'KEI 1.5 sq mm FR Copper Wire',     brand: 'KEI',      price: 800, originalPrice: 980,  tag: 'FR Grade',
+    desc: 'KEI Industries FR wire 1.5 sq mm. Oxygen-free copper. IS 694:2010 certified.' },
+  { id: 84, category: 'wiring',   image: '/cat_wiring.png',   name: 'Havells Lifeline 2.5 sq mm FRLS',  brand: 'Havells',  price: 1320, originalPrice: 1600,tag: 'Premium',
+    desc: 'Havells Lifeline FRLS copper wire 2.5 sq mm. Zero halogen, eco-friendly cable.' },
+
+  // ── SAFETY: Havells, Siemens, Schneider ──
+  { id: 85, category: 'safety',   image: '/cat_safety.png',   name: 'Havells 6A MCB Single Pole',       brand: 'Havells',  price: 195, originalPrice: 240,  tag: 'Popular',
+    desc: 'Havells MCB 6A single-pole C-curve. 10kA breaking capacity. ISI marked.' },
+  { id: 86, category: 'safety',   image: '/cat_safety.png',   name: 'Havells RCCB 25A 30mA 2-Pole',     brand: 'Havells',  price: 980, originalPrice: 1250, tag: 'Protection',
+    desc: 'Havells RCCB 25A/30mA double-pole. Earth leakage protection for all circuits.' },
+  { id: 87, category: 'safety',   image: '/cat_safety.png',   name: 'Siemens 5SL MCB 16A SP C-Curve',   brand: 'Siemens',  price: 220, originalPrice: 275,  tag: 'Industrial',
+    desc: 'Siemens 5SL MCB 16A C-curve. 6kA breaking capacity. IEC 60898-1 certified.' },
+  { id: 88, category: 'safety',   image: '/cat_safety.png',   name: 'Schneider iC60N MCB 32A SP',        brand: 'Schneider',price: 380, originalPrice: 470,  tag: 'Premium',
+    desc: 'Schneider Electric iC60N 32A MCB. IEC/EN 60898-1 compliant. DIN rail mount.' },
 ];
 
 function AddedToast({ show, name }) {
@@ -212,18 +299,23 @@ function ProductCard({ product }) {
   );
 }
 
-// Unique brand list derived from products
-const allBrands = ['All Brands', ...Array.from(new Set(products.map(p => p.brand)))];
-
+// Brand colours for all brands
 const brandColors = {
-  Polycab:  '#e63946',
-  Legrand:  '#1d7dd8',
-  Crompton: '#f4a261',
-  Aquatek:  '#2a9d8f',
-  Plato:    '#8338ec',
-  Ventac:   '#06d6a0',
-  Lisha:    '#f72585',
-  Vasavi:   '#fb8500',
+  Polycab:  '#e63946', Legrand:  '#1d7dd8', Crompton: '#f4a261',
+  Aquatek:  '#2a9d8f', Plato:    '#8338ec', Ventac:   '#06d6a0',
+  Lisha:    '#f72585', Vasavi:   '#fb8500',
+  // Switches
+  GM:       '#0077b6', Havells:  '#e63000', Anchor:   '#2dc653',
+  Fybros:   '#9b5de5',
+  // Fans
+  Atomberg: '#00b4d8', 'Orient Electric': '#f77f00',
+  // Lighting
+  Philips:  '#0057b8', Wipro:    '#007e5e', Panasonic:'#003087',
+  Orient:   '#e07a00',
+  // Wiring
+  Finolex:  '#c1121f', KEI:      '#4361ee',
+  // Safety
+  Siemens:  '#009999', Schneider:'#3a86ff',
 };
 
 // preview=true → homepage mode: 10 products, no filters, View All button
@@ -234,10 +326,19 @@ export default function Products({ preview = false }) {
   const [activeCategory, setActiveCategory] = useState(urlCat);
   const [activeBrand,    setActiveBrand]    = useState('All Brands');
 
-  // Sync when URL ?cat= changes (e.g. from footer links)
+  // Sync when URL ?cat= changes and reset brand filter
   useEffect(() => {
-    if (!preview) setActiveCategory(searchParams.get('cat') || 'all');
+    if (!preview) {
+      setActiveCategory(searchParams.get('cat') || 'all');
+      setActiveBrand('All Brands');
+    }
   }, [searchParams, preview]);
+
+  // Only show brands relevant to current category selection
+  const brandsInCategory = activeCategory === 'all'
+    ? Array.from(new Set(products.map(p => p.brand)))
+    : Array.from(new Set(products.filter(p => p.category === activeCategory).map(p => p.brand)));
+  const allBrands = ['All Brands', ...brandsInCategory];
 
   const filtered = preview
     ? products.slice(0, 10)
@@ -277,7 +378,7 @@ export default function Products({ preview = false }) {
                   <button
                     key={cat.id}
                     className={`products__filter-btn ${activeCategory === cat.id ? 'products__filter-btn--active' : ''}`}
-                    onClick={() => setActiveCategory(cat.id)}
+                    onClick={() => { setActiveCategory(cat.id); setActiveBrand('All Brands'); }}
                   >
                     {cat.label}
                     {cat.id !== 'all' && (
