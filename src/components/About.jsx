@@ -24,7 +24,7 @@ export default function About() {
             <p className="section-subtitle about__desc">
               Senthur Electricals & Hardwares has been the most trusted name for
               electrical and hardware needs in Vellakovil. Founded by
-              <strong style={{ color: 'var(--text-primary)' }}> T. Booopathiraja B.E.(Civil)</strong>,
+              <strong style={{ color: 'var(--text-primary)' }}> T. Boopathiraja B.E.(Civil)</strong>,
               we bring engineering expertise to every product we sell.
             </p>
             <p className="section-subtitle about__desc" style={{ marginTop: 12 }}>
@@ -48,13 +48,19 @@ export default function About() {
                 <span>TB</span>
               </div>
               <div className="about__owner-info">
-                <h3 className="about__owner-name">T. Booopathiraja</h3>
+                <h3 className="about__owner-name">T. Boopathiraja</h3>
                 <span className="about__owner-role">B.E. (Civil) – Proprietor</span>
                 <div className="about__owner-phones">
                   <a href="tel:9677334525" className="about__phone">📞 96773 34525</a>
                   <a href="tel:9384976959" className="about__phone">📞 93849 76959</a>
                 </div>
               </div>
+            </div>
+
+            {/* Real store photo */}
+            <div className="about__store-photo-wrap">
+              <img src="/store.jpg" alt="Senthur Electricals & Hardwares store interior" className="about__store-photo" />
+              <div className="about__store-photo-label">Our Store — Vellakovil</div>
             </div>
 
             <div className="about__stats">
