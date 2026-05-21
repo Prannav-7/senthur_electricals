@@ -123,14 +123,6 @@ export default function Hero() {
             <div className="hero__img-glow" />
           </div>
 
-          <div className="hero__stat-card hero__stat-card--1">
-            <span className="hero__stat-num">10+</span>
-            <span className="hero__stat-label">Top Brands</span>
-          </div>
-          <div className="hero__stat-card hero__stat-card--2">
-            <span className="hero__stat-num">1000+</span>
-            <span className="hero__stat-label">Products</span>
-          </div>
         </div>
       </div>
 
