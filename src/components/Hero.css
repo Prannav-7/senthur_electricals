@@ -53,9 +53,160 @@
   gap: 24px;
 }
 
+/* ── Slogan Banner ── */
+.hero__slogan {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(249, 115, 22, 0.12) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  animation: fadeInUp 0.5s ease 0.05s both;
+  position: relative;
+  overflow: hidden;
+}
+.hero__slogan::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.08) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.hero__slogan-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  flex-shrink: 0;
+  animation: pulse-glow-green 2s ease-in-out infinite;
+}
+.hero__slogan-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+}
+.hero__slogan-main {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #10b981, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.02em;
+}
+.hero__slogan-sub {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+@keyframes pulse-glow-green {
+  0%, 100% { box-shadow: 0 0 12px rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 24px rgba(16, 185, 129, 0.6); }
+}
+
+/* ── Top Badges Row ── */
+.hero__top-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
 .hero__badge {
   align-self: flex-start;
-  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+/* ── Shop Status (Live Indicator) ── */
+.hero__shop-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+  transition: all var(--transition-base);
+}
+.hero__shop-status--open {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+.hero__shop-status--closed {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+.hero__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: blink 1.5s ease-in-out infinite;
+}
+.hero__shop-status--open .hero__status-dot {
+  background: #34d399;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+.hero__shop-status--closed .hero__status-dot {
+  background: #f87171;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Price Highlight ── */
+.hero__price-highlight {
+  color: #10b981;
+  font-weight: 700;
+}
+
+/* ── Shop Timings ── */
+.hero__timings {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: fadeInUp 0.5s ease 0.55s both;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.hero__timings-icon {
+  color: var(--orange-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.hero__timings-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero__timings-row {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.hero__timings-row strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-right: 4px;
 }
 
 .hero__title {

@@ -133,6 +133,17 @@ a.footer__contact-item:hover {
   color: var(--orange-primary);
 }
 
+.footer__timing-item {
+  align-items: flex-start;
+}
+
+.footer__timing-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.82rem;
+}
+
 .footer__bottom {
   display: flex;
   align-items: center;

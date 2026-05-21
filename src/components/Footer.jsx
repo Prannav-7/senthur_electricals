@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Phone, MapPin, ArrowUp } from 'lucide-react';
+import { Zap, Phone, MapPin, ArrowUp, Clock } from 'lucide-react';
 import './Footer.css';
 
 export default function Footer() {
@@ -92,6 +92,13 @@ export default function Footer() {
               <div className="footer__contact-item">
                 <MapPin size={14} />
                 <span>315-316, KNT Complex, Muthur Road, Vellakovil – 638 111</span>
+              </div>
+              <div className="footer__contact-item footer__timing-item">
+                <Clock size={14} />
+                <div className="footer__timing-info">
+                  <span>Mon – Sat: 9:00 AM – 8:00 PM</span>
+                  <span>Sunday: 10:00 AM – 9:00 PM</span>
+                </div>
               </div>
             </div>
           </div>
