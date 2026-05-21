@@ -73,48 +73,31 @@
   flex-shrink: 0;
 }
 
-/* ── Scroll Controls ── */
-.top-selling__scroll-controls {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 16px;
+/* ── Product Marquee Track ── */
+.top-selling__track {
+  overflow: hidden;
+  position: relative;
+  /* Add masking for smooth fade in/out at edges */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  padding: 10px 0;
 }
 
-.top-selling__arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.top-selling__arrow:hover {
-  background: var(--orange-primary);
-  border-color: var(--orange-primary);
-  color: white;
-  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.4);
-}
-
-/* ── Product Track (horizontal scroll) ── */
-.top-selling__track-inner {
+.top-selling__marquee {
   display: flex;
   gap: 22px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 16px;
-  scrollbar-width: none;
+  width: max-content;
+  /* "move from right to left" -> animate from 0 to -50% */
+  animation: marquee-right-to-left 40s linear infinite;
 }
 
-.top-selling__track-inner::-webkit-scrollbar {
-  display: none;
+.top-selling__marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-right-to-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 11px)); }
 }
 
 /* ── Top Selling Card ── */
@@ -416,9 +399,5 @@
   .top-selling__pill {
     font-size: 0.75rem;
     padding: 6px 12px;
-  }
-
-  .top-selling__scroll-controls {
-    display: none;
   }
 }

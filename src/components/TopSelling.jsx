@@ -143,11 +143,15 @@ export default function TopSelling() {
     ? topProducts
     : topProducts.filter(p => p.brand === activeBrand);
 
-  const scroll = (dir) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: dir * 320, behavior: 'smooth' });
+  // Ensure enough items for a seamless marquee loop
+  let displayItems = [...filtered];
+  if (displayItems.length > 0) {
+    while (displayItems.length < 8) {
+      displayItems = [...displayItems, ...filtered];
     }
-  };
+    // Duplicate to create the continuous loop effect
+    displayItems = [...displayItems, ...displayItems];
+  }
 
   return (
     <section id="top-selling" className="top-selling">
@@ -190,25 +194,15 @@ export default function TopSelling() {
           ))}
         </div>
 
-        {/* Scroll Arrows */}
-        <div className="top-selling__scroll-controls">
-          <button className="top-selling__arrow" onClick={() => scroll(-1)} aria-label="Scroll left">
-            <ArrowLeft size={18} />
-          </button>
-          <button className="top-selling__arrow" onClick={() => scroll(1)} aria-label="Scroll right">
-            <ArrowRight size={18} />
-          </button>
-        </div>
-
-        {/* Product Row */}
+        {/* Product Marquee Track */}
         <div
           ref={track.ref}
           className={`top-selling__track reveal reveal-up ${track.isVisible ? 'revealed' : ''}`}
           style={{ transitionDelay: '0.2s' }}
         >
-          <div className="top-selling__track-inner" ref={scrollRef}>
-            {filtered.map((product, i) => (
-              <TopProductCard key={product.id} product={product} index={i} />
+          <div className="top-selling__marquee" ref={scrollRef}>
+            {displayItems.map((product, i) => (
+              <TopProductCard key={`${product.id}-${i}`} product={product} index={i % filtered.length} />
             ))}
           </div>
         </div>
