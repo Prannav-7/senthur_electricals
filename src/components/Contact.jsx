@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Clock, Send, CheckCircle } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useAnimations';
 import './Contact.css';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+
+  const header = useScrollReveal();
+  const infoCards = useScrollReveal({ threshold: 0.1 });
+  const formReveal = useScrollReveal({ threshold: 0.1 });
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -20,7 +25,10 @@ export default function Contact() {
   return (
     <section id="contact" className="contact">
       <div className="container">
-        <div className="contact__header">
+        <div
+          ref={header.ref}
+          className={`contact__header reveal reveal-up ${header.isVisible ? 'revealed' : ''}`}
+        >
           <div className="badge">Get In Touch</div>
           <h2 className="section-title">
             Visit or <span className="contact__title-accent">Contact Us</span>
@@ -34,7 +42,10 @@ export default function Contact() {
 
         <div className="contact__grid">
           {/* Info Panel */}
-          <div className="contact__info">
+          <div
+            ref={infoCards.ref}
+            className={`contact__info stagger-children ${infoCards.isVisible ? 'revealed' : ''}`}
+          >
             <div className="contact__info-card glass-card">
               <div className="contact__info-icon"><MapPin size={22} /></div>
               <div>
@@ -60,7 +71,7 @@ export default function Contact() {
               <div>
                 <h4 className="contact__info-label">Business Hours</h4>
                 <p className="contact__info-value">Mon – Sat: 9:00 AM – 8:00 PM</p>
-                <p className="contact__info-value">Sunday: 10:00 AM – 2:00 PM</p>
+                <p className="contact__info-value">Sunday: 10:00 AM – 9:00 PM</p>
               </div>
             </div>
 
@@ -80,7 +91,10 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div className="contact__form-wrap glass-card">
+          <div
+            ref={formReveal.ref}
+            className={`contact__form-wrap glass-card reveal reveal-right ${formReveal.isVisible ? 'revealed' : ''}`}
+          >
             <h3 className="contact__form-title">Send us a Message</h3>
             <p className="contact__form-sub">We'll reply via WhatsApp instantly!</p>
 

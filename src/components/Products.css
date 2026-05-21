@@ -183,13 +183,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: all var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
 }
 .product-card-v2:hover {
   border-color: rgba(249,115,22,0.35);
-  transform: translateY(-6px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 28px rgba(249,115,22,0.08);
+  transform: translateY(-8px) perspective(800px) rotateX(1deg);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(249,115,22,0.1);
 }
 
 /* Image */
@@ -420,7 +420,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  animation: fadeInUp 0.2s ease;
+  animation: slideInBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   pointer-events: none;
 }
 

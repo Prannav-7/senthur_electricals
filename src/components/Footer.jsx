@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Zap, Phone, MapPin, ArrowUp, Clock } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useAnimations';
 import './Footer.css';
 
 export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const grid = useScrollReveal({ threshold: 0.1 });
 
   return (
     <footer className="footer">
       <div className="footer__top-line" />
       <div className="container">
-        <div className="footer__grid">
+        <div
+          ref={grid.ref}
+          className={`footer__grid stagger-children ${grid.isVisible ? 'revealed' : ''}`}
+        >
           {/* Brand */}
           <div className="footer__brand-col">
             <div className="footer__logo">

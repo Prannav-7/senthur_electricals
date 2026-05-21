@@ -3,6 +3,7 @@ import { ShoppingCart, Heart, Zap, ArrowRight, X } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useScrollReveal } from '../hooks/useAnimations';
 import './Products.css';
 
 export const categories = [
@@ -351,10 +352,17 @@ export default function Products({ preview = false }) {
   const clearFilters = () => { setActiveCategory('all'); setActiveBrand('All Brands'); };
   const hasFilter    = activeCategory !== 'all' || activeBrand !== 'All Brands';
 
+  const headerReveal = useScrollReveal();
+  const gridReveal = useScrollReveal({ threshold: 0.05 });
+  const ctaReveal = useScrollReveal();
+
   return (
     <section id="products" className="products">
       <div className="container">
-        <div className="products__header">
+        <div
+          ref={headerReveal.ref}
+          className={`products__header reveal reveal-up ${headerReveal.isVisible ? 'revealed' : ''}`}
+        >
           <div className="badge">{preview ? 'Featured Products' : 'Our Products'}</div>
           <h2 className="section-title">
             What We <span className="products__title-accent">Offer</span>
@@ -443,7 +451,11 @@ export default function Products({ preview = false }) {
         )}
 
         {/* Grid */}
-        <div className="products__grid-v2">
+        <div
+          ref={gridReveal.ref}
+          className={`products__grid-v2 reveal reveal-up ${gridReveal.isVisible ? 'revealed' : ''}`}
+          style={{ transitionDelay: '0.15s' }}
+        >
           {filtered.length === 0 ? (
             <div className="products__empty">
               <p>No products found for the selected filters.</p>
@@ -456,7 +468,10 @@ export default function Products({ preview = false }) {
 
         {/* View All CTA — only in preview mode */}
         {preview && (
-          <div className="products__view-all">
+          <div
+            ref={ctaReveal.ref}
+            className={`products__view-all reveal reveal-up ${ctaReveal.isVisible ? 'revealed' : ''}`}
+          >
             <p className="products__view-all-hint">Showing 10 of 50+ products</p>
             <Link to="/products" className="btn-primary products__view-all-btn" id="view-all-products-btn">
               View All Products <ArrowRight size={16} />

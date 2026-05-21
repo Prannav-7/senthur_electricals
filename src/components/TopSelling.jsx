@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingCart, Heart, Zap, Crown, TrendingUp, ArrowRight, ArrowLeft, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
+import { useScrollReveal } from '../hooks/useAnimations';
 import { products } from './Products';
 import './TopSelling.css';
 
@@ -133,6 +134,11 @@ export default function TopSelling() {
   const [activeBrand, setActiveBrand] = useState('All');
   const scrollRef = useRef(null);
 
+  const header = useScrollReveal();
+  const filters = useScrollReveal();
+  const track = useScrollReveal({ threshold: 0.05 });
+  const cta = useScrollReveal();
+
   const filtered = activeBrand === 'All'
     ? topProducts
     : topProducts.filter(p => p.brand === activeBrand);
@@ -147,7 +153,10 @@ export default function TopSelling() {
     <section id="top-selling" className="top-selling">
       <div className="top-selling__bg-glow" />
       <div className="container">
-        <div className="top-selling__header">
+        <div
+          ref={header.ref}
+          className={`top-selling__header reveal reveal-up ${header.isVisible ? 'revealed' : ''}`}
+        >
           <div className="badge">
             <TrendingUp size={12} />
             Most Popular
@@ -162,7 +171,10 @@ export default function TopSelling() {
         </div>
 
         {/* Brand Filter Pills */}
-        <div className="top-selling__filters">
+        <div
+          ref={filters.ref}
+          className={`top-selling__filters reveal reveal-up delay-2 ${filters.isVisible ? 'revealed' : ''}`}
+        >
           {topBrands.map(brand => (
             <button
               key={brand}
@@ -189,10 +201,16 @@ export default function TopSelling() {
         </div>
 
         {/* Product Row */}
-        <div className="top-selling__track" ref={scrollRef}>
-          {filtered.map((product, i) => (
-            <TopProductCard key={product.id} product={product} index={i} />
-          ))}
+        <div
+          ref={track.ref}
+          className={`top-selling__track reveal reveal-up ${track.isVisible ? 'revealed' : ''}`}
+          style={{ transitionDelay: '0.2s' }}
+        >
+          <div className="top-selling__track-inner" ref={scrollRef}>
+            {filtered.map((product, i) => (
+              <TopProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
         </div>
 
         {/* View All CTA */}

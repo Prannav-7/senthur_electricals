@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, ShoppingBag } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useAnimations';
 import './Brands.css';
 
 const brands = [
@@ -34,6 +35,10 @@ export default function Brands() {
   const [hovered, setHovered] = useState(null);
   const navigate = useNavigate();
 
+  const header = useScrollReveal();
+  const grid = useScrollReveal({ threshold: 0.05 });
+  const marquee = useScrollReveal();
+
   const handleBrandClick = () => {
     navigate('/products');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -42,7 +47,10 @@ export default function Brands() {
   return (
     <section id="brands" className="brands">
       <div className="container">
-        <div className="brands__header">
+        <div
+          ref={header.ref}
+          className={`brands__header reveal reveal-up ${header.isVisible ? 'revealed' : ''}`}
+        >
           <div className="badge">Trusted Partners</div>
           <h2 className="section-title">
             Brands We <span className="brands__title-accent">Carry</span>
@@ -54,7 +62,10 @@ export default function Brands() {
           </p>
         </div>
 
-        <div className="brands__grid">
+        <div
+          ref={grid.ref}
+          className={`brands__grid stagger-children ${grid.isVisible ? 'revealed' : ''}`}
+        >
           {brands.map(brand => (
             <div
               key={brand.name}
@@ -102,7 +113,10 @@ export default function Brands() {
         </div>
 
         {/* Marquee */}
-        <div className="brands__marquee-wrap">
+        <div
+          ref={marquee.ref}
+          className={`brands__marquee-wrap reveal reveal-up ${marquee.isVisible ? 'revealed' : ''}`}
+        >
           <div className="brands__marquee">
             {[...brands, ...brands].map((b, i) => (
               <button

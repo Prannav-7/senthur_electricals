@@ -171,15 +171,50 @@ ul {
   box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
 }
 
-/* ===== ANIMATIONS ===== */
+/* ===== KEYFRAME ANIMATIONS ===== */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(12px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes flipUp {
+  from { opacity: 0; transform: perspective(600px) rotateX(20deg) translateY(20px); }
+  to { opacity: 1; transform: perspective(600px) rotateX(0) translateY(0); }
 }
 
 @keyframes pulse-glow {
@@ -202,6 +237,30 @@ ul {
   to { transform: rotate(360deg); }
 }
 
+@keyframes slideInBounce {
+  0% { opacity: 0; transform: translateY(40px); }
+  60% { opacity: 1; transform: translateY(-8px); }
+  80% { transform: translateY(3px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== INSTANT ANIMATION CLASSES ===== */
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease forwards;
 }
@@ -212,6 +271,84 @@ ul {
 
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ===== SCROLL-REVEAL SYSTEM ===== */
+/*
+  Usage: add class "reveal reveal-<direction>" to an element.
+  When IntersectionObserver triggers, add class "revealed".
+  Direction variants: up, down, left, right, scale, zoom, blur, flip
+*/
+
+.reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Direction-based starting positions */
+.reveal-up    { transform: translateY(50px); }
+.reveal-down  { transform: translateY(-50px); }
+.reveal-left  { transform: translateX(-60px); }
+.reveal-right { transform: translateX(60px); }
+.reveal-scale { transform: scale(0.85); }
+.reveal-zoom  { transform: scale(0.6); }
+.reveal-blur  { filter: blur(12px); transform: translateY(10px); }
+.reveal-flip  { transform: perspective(600px) rotateX(15deg) translateY(20px); }
+
+/* Revealed state — animates to natural position */
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1) rotateX(0);
+  filter: blur(0);
+}
+
+/* ── Stagger Delays for children ── */
+.stagger-children.revealed > * {
+  opacity: 0;
+  animation: fadeInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.stagger-children.revealed > *:nth-child(1)  { animation-delay: 0.00s; }
+.stagger-children.revealed > *:nth-child(2)  { animation-delay: 0.08s; }
+.stagger-children.revealed > *:nth-child(3)  { animation-delay: 0.16s; }
+.stagger-children.revealed > *:nth-child(4)  { animation-delay: 0.24s; }
+.stagger-children.revealed > *:nth-child(5)  { animation-delay: 0.32s; }
+.stagger-children.revealed > *:nth-child(6)  { animation-delay: 0.40s; }
+.stagger-children.revealed > *:nth-child(7)  { animation-delay: 0.48s; }
+.stagger-children.revealed > *:nth-child(8)  { animation-delay: 0.56s; }
+.stagger-children.revealed > *:nth-child(9)  { animation-delay: 0.64s; }
+.stagger-children.revealed > *:nth-child(10) { animation-delay: 0.72s; }
+.stagger-children.revealed > *:nth-child(11) { animation-delay: 0.80s; }
+.stagger-children.revealed > *:nth-child(12) { animation-delay: 0.88s; }
+
+/* Delay utility classes for manual staggering */
+.delay-1 { transition-delay: 0.1s !important; }
+.delay-2 { transition-delay: 0.2s !important; }
+.delay-3 { transition-delay: 0.3s !important; }
+.delay-4 { transition-delay: 0.4s !important; }
+.delay-5 { transition-delay: 0.5s !important; }
+.delay-6 { transition-delay: 0.6s !important; }
+
+/* ── Accessibility: Reduce Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .stagger-children.revealed > * {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
 }
 
 /* ===== GLASS CARD ===== */

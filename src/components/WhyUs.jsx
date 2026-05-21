@@ -1,5 +1,6 @@
 import React from 'react';
 import { BadgeCheck, Truck, HeadphonesIcon, DollarSign, ShieldCheck, Star } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useAnimations';
 import './WhyUs.css';
 
 const reasons = [
@@ -12,11 +13,18 @@ const reasons = [
 ];
 
 export default function WhyUs() {
+  const header = useScrollReveal();
+  const grid = useScrollReveal({ threshold: 0.1 });
+  const cta = useScrollReveal();
+
   return (
     <section id="whyus" className="whyus">
       <div className="whyus__bg-glow" />
       <div className="container">
-        <div className="whyus__header">
+        <div
+          ref={header.ref}
+          className={`whyus__header reveal reveal-up ${header.isVisible ? 'revealed' : ''}`}
+        >
           <div className="badge">Why Choose Us</div>
           <h2 className="section-title">
             The Senthur <span className="whyus__title-accent">Advantage</span>
@@ -28,9 +36,12 @@ export default function WhyUs() {
           </p>
         </div>
 
-        <div className="whyus__grid">
+        <div
+          ref={grid.ref}
+          className={`whyus__grid stagger-children ${grid.isVisible ? 'revealed' : ''}`}
+        >
           {reasons.map(({ icon: Icon, title, desc }, i) => (
-            <div key={title} className="whyus-card glass-card" style={{ animationDelay: `${i * 0.08}s` }}>
+            <div key={title} className="whyus-card glass-card" style={{ animationDelay: `${i * 0.1}s` }}>
               <div className="whyus-card__icon-wrap">
                 <div className="whyus-card__icon">
                   <Icon size={28} />
@@ -44,7 +55,10 @@ export default function WhyUs() {
         </div>
 
         {/* CTA Strip */}
-        <div className="whyus__cta-strip">
+        <div
+          ref={cta.ref}
+          className={`whyus__cta-strip reveal reveal-up ${cta.isVisible ? 'revealed' : ''}`}
+        >
           <div className="whyus__cta-text">
             <h3>Ready to start your project?</h3>
             <p>Call us or visit our store in Vellakovil today!</p>

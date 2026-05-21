@@ -85,14 +85,29 @@
   align-items: center;
   justify-content: center;
   color: var(--orange-primary);
-  transition: all var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   z-index: 1;
+}
+
+.whyus-card__icon-ring {
+  position: absolute;
+  inset: -4px;
+  border: 2px dashed rgba(249, 115, 22, 0.2);
+  border-radius: calc(var(--radius-md) + 4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .whyus-card:hover .whyus-card__icon {
   background: rgba(249, 115, 22, 0.2);
   box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.whyus-card:hover .whyus-card__icon-ring {
+  opacity: 1;
+  animation: spin-slow 8s linear infinite;
 }
 
 .whyus-card__title {

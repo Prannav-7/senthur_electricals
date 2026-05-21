@@ -103,7 +103,7 @@
 }
 
 /* ── Product Track (horizontal scroll) ── */
-.top-selling__track {
+.top-selling__track-inner {
   display: flex;
   gap: 22px;
   overflow-x: auto;
@@ -113,7 +113,7 @@
   scrollbar-width: none;
 }
 
-.top-selling__track::-webkit-scrollbar {
+.top-selling__track-inner::-webkit-scrollbar {
   display: none;
 }
 
