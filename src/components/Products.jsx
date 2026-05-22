@@ -461,7 +461,7 @@ export default function Products({ preview = false }) {
   const hasFilter    = activeCategory !== 'all' || activeBrand !== 'All Brands';
 
   const headerReveal = useScrollReveal();
-  const gridReveal = useScrollReveal({ threshold: 0.05 });
+  const gridReveal = useScrollReveal({ threshold: 0, rootMargin: '0px' });
   const ctaReveal = useScrollReveal();
 
   return (
@@ -561,7 +561,7 @@ export default function Products({ preview = false }) {
         {/* Grid */}
         <div
           ref={gridReveal.ref}
-          className={`products__grid-v2 reveal reveal-up ${gridReveal.isVisible ? 'revealed' : ''}`}
+          className={`products__grid-v2 ${preview ? `reveal reveal-up ${gridReveal.isVisible ? 'revealed' : ''}` : 'revealed-static'}`}
           style={{ transitionDelay: '0.15s' }}
         >
           {filtered.length === 0 ? (

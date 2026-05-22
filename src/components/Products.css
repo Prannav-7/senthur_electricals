@@ -175,6 +175,12 @@
   gap: 22px;
 }
 
+/* Non-animated variant used on full products page */
+.revealed-static {
+  opacity: 1;
+  transform: none;
+}
+
 /* ── Product Card v2 ── */
 .product-card-v2 {
   background: rgba(255,255,255,0.03);
