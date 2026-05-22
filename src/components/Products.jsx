@@ -340,10 +340,7 @@ function ProductCard({ product }) {
         <Link to={`/products/${product.id}`}><h3 className="pcv2__name">{product.name}</h3></Link>
         <p className="pcv2__desc">{product.desc}</p>
 
-        <div className="pcv2__price-row">
-          <span className="pcv2__price">₹{product.price.toLocaleString()}</span>
-          <span className="pcv2__original">₹{product.originalPrice.toLocaleString()}</span>
-        </div>
+
 
         <div className="pcv2__actions">
           <button className="pcv2__btn pcv2__btn--cart" onClick={handleAddToCart} id={`cart-btn-${product.id}`}>

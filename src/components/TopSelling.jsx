@@ -111,11 +111,7 @@ function TopProductCard({ product, index }) {
           <h3 className="ts-card__name">{product.name}</h3>
         </Link>
 
-        <div className="ts-card__price-row">
-          <span className="ts-card__price">₹{product.price.toLocaleString()}</span>
-          <span className="ts-card__original">₹{product.originalPrice.toLocaleString()}</span>
-          <span className="ts-card__save">Save ₹{(product.originalPrice - product.price).toLocaleString()}</span>
-        </div>
+
 
         <div className="ts-card__actions">
           <button className="ts-card__btn ts-card__btn--cart" onClick={handleAdd}>
