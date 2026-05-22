@@ -1,10 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Heart, Zap, ArrowRight, X } from 'lucide-react';
+import { ShoppingCart, Heart, Zap, ArrowRight, X, FileText, Download } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useScrollReveal } from '../hooks/useAnimations';
 import './Products.css';
+
+// ── Catalogue Downloads ──
+export const catalogues = [
+  {
+    id: 'atomberg',
+    brand: 'Atomberg',
+    title: 'Atomberg Fan Catalogue',
+    subtitle: 'Summer 2026 — BLDC Ceiling Fans',
+    file: '/Atomberg Fan Catalogue Summer 2026.pdf',
+    color: '#00b4d8',
+    description: 'Full range of Atomberg BLDC fans — Efficio Alpha, Renesa Prime, Studio Nexus Smart, Aris Contour & more. Energy ratings, specifications & pricing inside.',
+  },
+  {
+    id: 'ebc',
+    brand: 'EBC',
+    title: 'EBC Electricals Catalogue',
+    subtitle: 'Aug 2024 — Switches, Sockets & MCBs',
+    file: '/EBC Catalouge 28-08-24-Low.pdf',
+    color: '#e63946',
+    description: 'Complete EBC product range — modular switches, sockets, fan regulators, MCBs, distribution boards & accessories for residential use.',
+  },
+  {
+    id: 'havells',
+    brand: 'Havells',
+    title: 'Havells Fan Catalogue',
+    subtitle: '2025 — BLDC & Decorative Fans',
+    file: '/FANCATAHAV_MARG28325COMD-1.pdf',
+    color: '#e63000',
+    description: 'Havells fan range — Epic, Epic Signia, Stealth Air, Fab Pro, Inveno LX, Neoma Underlight and more. Full specs & price list enclosed.',
+  },
+];
 
 export const categories = [
   { id: 'all',      label: 'All Products' },
@@ -149,27 +180,40 @@ export const products = [
   { id: 60, category: 'switches', image: '/cat_switches.png', name: 'Fybros 16A Socket Outlet',         brand: 'Fybros',  price: 130, originalPrice: 165,  tag: 'Economy',
     desc: 'Fybros 16A socket with child safety shutters. Snap-fit installation.' },
 
-  // ── FANS: Havells, Atomberg, Orient Electric, Crompton ──
-  { id: 61, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Leganza Ceiling Fan 1200mm', brand: 'Havells',  price: 2800, originalPrice: 3400, tag: 'Bestseller',
-    desc: 'Havells Leganza 1200mm ceiling fan. 72W motor, 3 metallic blades, 5-year warranty.' },
-  { id: 62, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Efficiencia Neo BLDC 1200mm', brand: 'Havells', price: 4500, originalPrice: 5500, tag: 'Energy Saving',
-    desc: 'Havells BLDC ceiling fan — only 28W consumption. Remote included. 5-star BEE rated.' },
-  { id: 63, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Sprint Table Fan 400mm',    brand: 'Havells',  price: 1450, originalPrice: 1800, tag: 'Table Fan',
-    desc: 'Havells Sprint 400mm table fan. 55W, 3-speed settings, 2-year warranty.' },
-  { id: 64, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Renesa 1200mm BLDC Fan',   brand: 'Atomberg', price: 3800, originalPrice: 4600, tag: 'Smart',
-    desc: 'Atomberg Renesa 28W BLDC fan with remote and timer. 5-star rated, 5-year warranty.' },
-  { id: 65, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Efficio+ 1200mm BLDC',     brand: 'Atomberg', price: 3200, originalPrice: 3900, tag: 'Popular',
-    desc: 'Atomberg Efficio+ with LED indicator, 6-speed remote. Saves 35% energy vs normal fans.' },
-  { id: 66, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Apex-FX 1200mm',    brand: 'Orient Electric', price: 2400, originalPrice: 2900, tag: 'Durable',
+  // ── FANS: Havells (FANCATAHAV catalogue), Atomberg (Summer 2026 catalogue), Orient Electric, Crompton ──
+  // Havells BLDC Fan Range — from FANCATAHAV catalogue
+  { id: 61, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Epic BLDC 1200mm',          brand: 'Havells',  price: 3299,  originalPrice: 3999,  tag: 'Bestseller',
+    desc: 'Havells Epic 1200mm BLDC ceiling fan. 35W, 100% copper motor, remote & regulator compatible. EcoActive technology.' },
+  { id: 62, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Epic Signia BLDC 1200mm',    brand: 'Havells',  price: 4999,  originalPrice: 5999,  tag: 'Smart Display',
+    desc: 'Havells Epic Signia with interactive LED speed/mode display, RF remote. Sleep, Breeze & Boost modes. 5-star BEE.' },
+  { id: 63, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Stealth Air BLDC 1200mm',    brand: 'Havells',  price: 5499,  originalPrice: 6499,  tag: 'Silent',
+    desc: 'Havells Stealth Air — aerodynamic blades for near-silent operation. Premium finish, RF remote. 5-star rated.' },
+  { id: 64, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Fab Pro BLDC 1200mm',        brand: 'Havells',  price: 2999,  originalPrice: 3699,  tag: 'Value',
+    desc: 'Havells Fab Pro entry-level BLDC fan. 38W, remote control, 5-star rated. Ideal for bedrooms & living rooms.' },
+  { id: 65, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Inveno LX BLDC 1200mm',      brand: 'Havells',  price: 6499,  originalPrice: 7999,  tag: 'Premium',
+    desc: 'Havells Inveno LX premium ABS blades for ultra-silent, high-airflow performance. Smart RF remote, 5-star.' },
+  { id: 66, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Neoma Underlight BLDC 1200mm',brand: 'Havells', price: 8999,  originalPrice: 10999, tag: 'Underlight',
+    desc: 'Havells Neoma BLDC with integrated LED underlight. App + voice control, Sleep/Boost modes. 5-star premium.' },
+  { id: 67, category: 'fans',     image: '/cat_lighting.png', name: 'Havells Sprint Table Fan 400mm',     brand: 'Havells',  price: 1450,  originalPrice: 1800,  tag: 'Table Fan',
+    desc: 'Havells Sprint 400mm table fan. 55W motor, 3-speed settings, 2-year warranty. Compact & powerful.' },
+
+  // Atomberg Fan Range — from Summer 2026 catalogue
+  { id: 68, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Efficio Alpha 1200mm BLDC', brand: 'Atomberg', price: 2799,  originalPrice: 3499,  tag: 'Popular',
+    desc: 'Atomberg Efficio Alpha — standard BLDC, remote control, 28W. Saves up to 65% energy. 5-year warranty.' },
+  { id: 69, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Renesa Prime 1200mm BLDC',  brand: 'Atomberg', price: 3999,  originalPrice: 4799,  tag: 'Smart',
+    desc: 'Atomberg Renesa Prime with RF remote, LED speed indicator, timer & sleep mode. 28W BLDC. 5-star rated.' },
+  { id: 70, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Studio Nexus Smart 1200mm', brand: 'Atomberg', price: 5499,  originalPrice: 6499,  tag: 'IoT Smart',
+    desc: 'Atomberg Studio Nexus — IoT-enabled, app & voice control (Alexa/Google). Boost, Sleep, Breeze modes. 5-star.' },
+  { id: 89, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Aris Contour 1200mm BLDC',  brand: 'Atomberg', price: 6999,  originalPrice: 8499,  tag: 'Designer',
+    desc: 'Atomberg Aris Contour — premium design, high airflow, smart features. 30W BLDC. App & voice control.' },
+  { id: 90, category: 'fans',     image: '/cat_lighting.png', name: 'Atomberg Renesa+ 900mm BLDC',        brand: 'Atomberg', price: 3499,  originalPrice: 4199,  tag: 'Compact',
+    desc: 'Atomberg Renesa+ 900mm compact BLDC fan for smaller rooms. Remote, timer, LED indicator. 25W.' },
+  { id: 91, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Apex-FX 1200mm',     brand: 'Orient Electric', price: 2400, originalPrice: 2900, tag: 'Durable',
     desc: 'Orient Apex-FX 1200mm with double ball bearing motor. 3-speed pull-chain.' },
-  { id: 67, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Aeroquiet 1200mm',  brand: 'Orient Electric', price: 2950, originalPrice: 3600, tag: 'Silent',
+  { id: 92, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Electric Aeroquiet 1200mm',   brand: 'Orient Electric', price: 2950, originalPrice: 3600, tag: 'Silent',
     desc: 'Orient Aeroquiet — ultra-silent at 36 dB. 3-year warranty, anti-dust coating.' },
-  { id: 68, category: 'fans',     image: '/cat_lighting.png', name: 'Orient Stand-17 Pedestal Fan 400mm',brand: 'Orient Electric', price: 1800, originalPrice: 2200, tag: 'Stand Fan',
-    desc: 'Orient 400mm pedestal fan with adjustable height, oscillation and 5-speed settings.' },
-  { id: 69, category: 'fans',     image: '/cat_lighting.png', name: 'Crompton Aura Prime 1200mm',        brand: 'Crompton', price: 2200, originalPrice: 2700, tag: 'Reliable',
+  { id: 93, category: 'fans',     image: '/cat_lighting.png', name: 'Crompton Aura Prime 1200mm',         brand: 'Crompton', price: 2200, originalPrice: 2700, tag: 'Reliable',
     desc: 'Crompton Aura Prime 1200mm ceiling fan. 74W motor, anti-dust coating. 2-year warranty.' },
-  { id: 70, category: 'fans',     image: '/cat_lighting.png', name: 'Crompton Hill Briz Exhaust Fan 6"', brand: 'Crompton', price: 650,  originalPrice: 820,  tag: 'Exhaust',
-    desc: 'Crompton 6-inch exhaust fan for kitchens and bathrooms. Low noise, easy install.' },
 
   // ── LIGHTING: Philips, Havells, Wipro, Panasonic, Orient ──
   { id: 71, category: 'lighting', image: '/cat_lighting.png', name: 'Philips LED Bulb 9W Warm White',    brand: 'Philips',  price: 110, originalPrice: 140,  tag: 'Trusted',
@@ -203,15 +247,33 @@ export const products = [
   { id: 84, category: 'wiring',   image: '/cat_wiring.png',   name: 'Havells Lifeline 2.5 sq mm FRLS',  brand: 'Havells',  price: 1320, originalPrice: 1600,tag: 'Premium',
     desc: 'Havells Lifeline FRLS copper wire 2.5 sq mm. Zero halogen, eco-friendly cable.' },
 
-  // ── SAFETY: Havells, Siemens, Schneider ──
-  { id: 85, category: 'safety',   image: '/cat_safety.png',   name: 'Havells 6A MCB Single Pole',       brand: 'Havells',  price: 195, originalPrice: 240,  tag: 'Popular',
+  // ── SAFETY: Havells, Siemens, Schneider, EBC ──
+  { id: 85, category: 'safety',   image: '/cat_safety.png',   name: 'Havells 6A MCB Single Pole',       brand: 'Havells',  price: 195,  originalPrice: 240,  tag: 'Popular',
     desc: 'Havells MCB 6A single-pole C-curve. 10kA breaking capacity. ISI marked.' },
-  { id: 86, category: 'safety',   image: '/cat_safety.png',   name: 'Havells RCCB 25A 30mA 2-Pole',     brand: 'Havells',  price: 980, originalPrice: 1250, tag: 'Protection',
+  { id: 86, category: 'safety',   image: '/cat_safety.png',   name: 'Havells RCCB 25A 30mA 2-Pole',     brand: 'Havells',  price: 980,  originalPrice: 1250, tag: 'Protection',
     desc: 'Havells RCCB 25A/30mA double-pole. Earth leakage protection for all circuits.' },
-  { id: 87, category: 'safety',   image: '/cat_safety.png',   name: 'Siemens 5SL MCB 16A SP C-Curve',   brand: 'Siemens',  price: 220, originalPrice: 275,  tag: 'Industrial',
+  { id: 87, category: 'safety',   image: '/cat_safety.png',   name: 'Siemens 5SL MCB 16A SP C-Curve',   brand: 'Siemens',  price: 220,  originalPrice: 275,  tag: 'Industrial',
     desc: 'Siemens 5SL MCB 16A C-curve. 6kA breaking capacity. IEC 60898-1 certified.' },
-  { id: 88, category: 'safety',   image: '/cat_safety.png',   name: 'Schneider iC60N MCB 32A SP',        brand: 'Schneider',price: 380, originalPrice: 470,  tag: 'Premium',
+  { id: 88, category: 'safety',   image: '/cat_safety.png',   name: 'Schneider iC60N MCB 32A SP',        brand: 'Schneider',price: 380,  originalPrice: 470,  tag: 'Premium',
     desc: 'Schneider Electric iC60N 32A MCB. IEC/EN 60898-1 compliant. DIN rail mount.' },
+
+  // ── EBC — from EBC Catalouge 28-08-24 ──
+  { id: 94, category: 'switches', image: '/cat_switches.png', name: 'EBC 6A One-Way Modular Switch',     brand: 'EBC',      price: 72,   originalPrice: 95,   tag: 'Budget',
+    desc: 'EBC 6A one-way modular switch. Polycarbonate body, silver contacts. ISI marked. Budget-friendly choice.' },
+  { id: 95, category: 'switches', image: '/cat_switches.png', name: 'EBC 16A Two-Way Switch',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Value',
+    desc: 'EBC 16A two-way modular switch for staircases & passages. Heavy-duty silver contacts.' },
+  { id: 96, category: 'switches', image: '/cat_switches.png', name: 'EBC 6A 3-Pin Socket with Shutter',  brand: 'EBC',      price: 98,   originalPrice: 130,  tag: 'Safe',
+    desc: 'EBC 6A universal 3-pin socket with child-safety shutters. ISI marked.' },
+  { id: 97, category: 'switches', image: '/cat_switches.png', name: 'EBC 16A 5-Pin Industrial Socket',   brand: 'EBC',      price: 165,  originalPrice: 210,  tag: 'Industrial',
+    desc: 'EBC 16A round-pin socket for ACs, washing machines. Safety shutter, snap-fit installation.' },
+  { id: 98, category: 'switches', image: '/cat_switches.png', name: 'EBC Fan Speed Regulator',           brand: 'EBC',      price: 145,  originalPrice: 190,  tag: 'Economy',
+    desc: 'EBC electronic fan speed regulator. Step-less control, cool operation, low power loss.' },
+  { id: 99, category: 'safety',   image: '/cat_safety.png',  name: 'EBC 6A MCB Single Pole',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Economy',
+    desc: 'EBC 6A single-pole MCB C-curve. ISI marked. 6kA breaking capacity for residential circuits.' },
+  { id: 100,category: 'safety',   image: '/cat_safety.png',  name: 'EBC 16A MCB Single Pole',           brand: 'EBC',      price: 125,  originalPrice: 165,  tag: 'Popular',
+    desc: 'EBC 16A SP MCB for socket and appliance circuits. IS/IEC 60898-1 certified.' },
+  { id: 101,category: 'safety',   image: '/cat_safety.png',  name: 'EBC 4-Way Distribution Board',      brand: 'EBC',      price: 420,  originalPrice: 560,  tag: 'Panel',
+    desc: 'EBC 4-way single-door flush distribution board. DIN rail, transparent cover, ISI marked.' },
 ];
 
 function AddedToast({ show, name }) {
@@ -307,7 +369,7 @@ const brandColors = {
   Lisha:    '#f72585', Vasavi:   '#fb8500',
   // Switches
   GM:       '#0077b6', Havells:  '#e63000', Anchor:   '#2dc653',
-  Fybros:   '#9b5de5',
+  Fybros:   '#9b5de5', EBC:      '#c62a2f',
   // Fans
   Atomberg: '#00b4d8', 'Orient Electric': '#f77f00',
   // Lighting
@@ -318,6 +380,52 @@ const brandColors = {
   // Safety
   Siemens:  '#009999', Schneider:'#3a86ff',
 };
+
+// ── Catalogue Download Section ──
+function CatalogueSection() {
+  const reveal = useScrollReveal({ threshold: 0.05 });
+  return (
+    <div
+      ref={reveal.ref}
+      className={`catalogues-section reveal reveal-up ${reveal.isVisible ? 'revealed' : ''}`}
+    >
+      <div className="catalogues-header">
+        <div className="badge">Product Catalogues</div>
+        <h2 className="section-title">Download <span className="products__title-accent">Catalogues</span></h2>
+        <div className="divider" style={{ margin: '12px auto' }} />
+        <p className="section-subtitle" style={{ margin: '0 auto' }}>
+          Access full product specifications, models & price lists from our brand partners.
+        </p>
+      </div>
+      <div className="catalogues-grid">
+        {catalogues.map(cat => (
+          <div key={cat.id} className="catalogue-card" style={{ '--cat-color': cat.color }}>
+            <div className="catalogue-card__icon-wrap">
+              <FileText size={32} strokeWidth={1.5} />
+            </div>
+            <div className="catalogue-card__body">
+              <span className="catalogue-card__brand" style={{ color: cat.color }}>{cat.brand}</span>
+              <h3 className="catalogue-card__title">{cat.title}</h3>
+              <p className="catalogue-card__subtitle">{cat.subtitle}</p>
+              <p className="catalogue-card__desc">{cat.description}</p>
+            </div>
+            <a
+              href={cat.file}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="catalogue-card__btn"
+              style={{ background: cat.color }}
+              id={`download-catalogue-${cat.id}`}
+            >
+              <Download size={15} /> Download PDF
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 // preview=true → homepage mode: 10 products, no filters, View All button
 export default function Products({ preview = false }) {
@@ -472,12 +580,15 @@ export default function Products({ preview = false }) {
             ref={ctaReveal.ref}
             className={`products__view-all reveal reveal-up ${ctaReveal.isVisible ? 'revealed' : ''}`}
           >
-            <p className="products__view-all-hint">Showing 10 of 50+ products</p>
+            <p className="products__view-all-hint">Showing 10 of 100+ products</p>
             <Link to="/products" className="btn-primary products__view-all-btn" id="view-all-products-btn">
               View All Products <ArrowRight size={16} />
             </Link>
           </div>
         )}
+
+        {/* Catalogue Downloads — only on full page */}
+        {!preview && <CatalogueSection />}
       </div>
     </section>
   );
