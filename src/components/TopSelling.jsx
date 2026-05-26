@@ -63,7 +63,7 @@ function TopProductCard({ product, index }) {
 
   const handleBuy = (e) => {
     e.preventDefault(); e.stopPropagation();
-    const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\nPrice: ₹${product.price.toLocaleString()}\n\nPlease confirm availability.`;
+    const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\n\nPlease confirm availability.`;
     window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
