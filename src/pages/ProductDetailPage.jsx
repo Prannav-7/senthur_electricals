@@ -87,8 +87,7 @@ export default function ProductDetailPage() {
 
   const handleCart = () => addToCart(product);
   const handleDemo = () => {
-    const msg = `Hi! I'd like to book a demo for:\n\u2022 ${product.name} (${product.brand})\n\nPlease let me know available time slots.`;
-    window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
+    window.location.href = 'tel:9677334525';
   };
   const handleBuy = () => {
     const msg = `Hi! I want to buy:\n\u2022 ${product.name} (${product.brand})\n\nPlease confirm availability.`;

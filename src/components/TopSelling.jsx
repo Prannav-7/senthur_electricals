@@ -54,8 +54,7 @@ function TopProductCard({ product, index }) {
 
   const handleDemo = (e) => {
     e.preventDefault(); e.stopPropagation();
-    const msg = `Hi! I'd like to book a demo for:\n\u2022 ${product.name} (${product.brand})\n\nPlease let me know available time slots.`;
-    window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
+    window.location.href = 'tel:9677334525';
     setDemoBooked(true);
     setTimeout(() => setDemoBooked(false), 2000);
   };
