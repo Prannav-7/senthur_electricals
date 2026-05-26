@@ -5,6 +5,10 @@ import { useCart } from '../context/CartContext';
 import { useScrollReveal } from '../hooks/useAnimations';
 import './Products.css';
 
+// ── Asset image helper (no individual imports needed) ──
+const img = (name) => new URL(`../assets/image/${name}`, import.meta.url).href;
+
+
 // ── Catalogue Downloads ──
 export const catalogues = [
   {
@@ -48,31 +52,31 @@ export const categories = [
 
 export const products = [
   // ── WIRING ──
-  { id: 1,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Copper Flexible Wire 1.5 sq mm', brand: 'Polycab', price: 890,  originalPrice: 1100, tag: 'Bestseller',
+  { id: 1,  category: 'wiring',   image: img('Copper Flexible Wire 1.5 sq mm.png'),   name: 'Copper Flexible Wire 1.5 sq mm', brand: 'Polycab', price: 890,  originalPrice: 1100, tag: 'Bestseller',
     desc: 'Single-core copper flexible wire, ideal for household wiring. Heat & moisture resistant PVC insulation.' },
-  { id: 2,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Copper Flexible Wire 2.5 sq mm', brand: 'Polycab', price: 1250, originalPrice: 1500, tag: 'Popular',
+  { id: 2,  category: 'wiring',   image: img('Copper Flexible Wire 2.5 sq mm.png'),   name: 'Copper Flexible Wire 2.5 sq mm', brand: 'Polycab', price: 1250, originalPrice: 1500, tag: 'Popular',
     desc: 'High-conductivity 2.5 sq mm copper wire for power points and heavy appliances.' },
-  { id: 3,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Copper Flexible Wire 4 sq mm',   brand: 'Polycab', price: 1890, originalPrice: 2200, tag: 'Heavy Duty',
+  { id: 3,  category: 'wiring',   image: img('Copper Flexible Wire 4 sq mm.png'),     name: 'Copper Flexible Wire 4 sq mm',   brand: 'Polycab', price: 1890, originalPrice: 2200, tag: 'Heavy Duty',
     desc: '4 sq mm multi-strand wire for AC units and high-load circuits. FRLS grade.' },
-  { id: 4,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Armoured Cable 3-Core 1.5 sq mm',brand: 'Lisha',   price: 2400, originalPrice: 2800, tag: 'Durable',
+  { id: 4,  category: 'wiring',   image: img('Armoured Cable 3-Core 1.5 sq mm.png'), name: 'Armoured Cable 3-Core 1.5 sq mm',brand: 'Lisha',   price: 2400, originalPrice: 2800, tag: 'Durable',
     desc: 'Steel armoured underground cable for outdoor and industrial applications.' },
-  { id: 5,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Co-axial TV Cable (100m)',        brand: 'Vasavi',  price: 750,  originalPrice: 950,  tag: 'Value Pack',
+  { id: 5,  category: 'wiring',   image: img('Co-axial TV Cable (100m).png'),         name: 'Co-axial TV Cable (100m)',        brand: 'Vasavi',  price: 750,  originalPrice: 950,  tag: 'Value Pack',
     desc: 'RG6 co-axial cable for cable TV and satellite antenna connections. Low loss.' },
-  { id: 6,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Earth Wire 2.5 sq mm (Green)',    brand: 'Polycab', price: 680,  originalPrice: 820,  tag: 'Safety',
+  { id: 6,  category: 'wiring',   image: img('Earth Wire 2.5 sq mm (Green).png'),     name: 'Earth Wire 2.5 sq mm (Green)',    brand: 'Polycab', price: 680,  originalPrice: 820,  tag: 'Safety',
     desc: 'Green-insulated earth wire for grounding all electrical installations.' },
-  { id: 7,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Multi-strand Wire 6 sq mm',       brand: 'Lisha',   price: 2800, originalPrice: 3200, tag: 'Industrial',
+  { id: 7,  category: 'wiring',   image: img('Multi-strand Wire 6 sq mm.png'),        name: 'Multi-strand Wire 6 sq mm',       brand: 'Lisha',   price: 2800, originalPrice: 3200, tag: 'Industrial',
     desc: 'Heavy gauge multi-strand copper wire for motor and pump connections.' },
-  { id: 8,  category: 'wiring',   image: '/cat_wiring.png',   name: 'FRLS Wire 1.5 sq mm (Red)',       brand: 'Vasavi',  price: 1050, originalPrice: 1250, tag: 'Fire Safe',
+  { id: 8,  category: 'wiring',   image: img('FRLS Wire 1.5 sq mm (Red).png'),        name: 'FRLS Wire 1.5 sq mm (Red)',       brand: 'Vasavi',  price: 1050, originalPrice: 1250, tag: 'Fire Safe',
     desc: 'Fire Retardant Low Smoke wire. Meets IS 694 standards. Ideal for high-rise buildings.' },
-  { id: 9,  category: 'wiring',   image: '/cat_wiring.png',   name: 'Submersible Pump Cable 3-Core',   brand: 'Polycab', price: 3500, originalPrice: 4000, tag: 'Waterproof',
+  { id: 9,  category: 'wiring',   image: '/cat_wiring.png',                           name: 'Submersible Pump Cable 3-Core',   brand: 'Polycab', price: 3500, originalPrice: 4000, tag: 'Waterproof',
     desc: '3-core waterproof cable designed for submersible water pumps. PVC jacket.' },
-  { id: 10, category: 'wiring',   image: '/cat_wiring.png',   name: 'Telephone Cable 2-Pair (100m)',   brand: 'Vasavi',  price: 450,  originalPrice: 580,  tag: 'Bundle',
+  { id: 10, category: 'wiring',   image: img('Telephone Cable 2-Pair (100m).png'),   name: 'Telephone Cable 2-Pair (100m)',   brand: 'Vasavi',  price: 450,  originalPrice: 580,  tag: 'Bundle',
     desc: '2-pair copper telephone wire for landline and intercom installations.' },
 
   // ── SWITCHES ──
-  { id: 11, category: 'switches', image: '/cat_switches.png', name: '6A One-Way Modular Switch',       brand: 'Legrand', price: 185,  originalPrice: 220,  tag: 'Premium',
+  { id: 11, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: '6A One-Way Modular Switch',       brand: 'Legrand', price: 185,  originalPrice: 220,  tag: 'Premium',
     desc: 'Elegant modular one-way switch. Silver contact points. 6A rating for lights and fans.' },
-  { id: 12, category: 'switches', image: '/cat_switches.png', name: '16A Two-Way Switch',              brand: 'Legrand', price: 245,  originalPrice: 290,  tag: 'Popular',
+  { id: 12, category: 'switches', image: img('16A Two-Way Switch.png'),               name: '16A Two-Way Switch',              brand: 'Legrand', price: 245,  originalPrice: 290,  tag: 'Popular',
     desc: 'Staircase and passage two-way switching. Rated 16A for heavy appliances.' },
   { id: 13, category: 'switches', image: '/cat_switches.png', name: '6A 3-Pin Socket Outlet',          brand: 'Legrand', price: 210,  originalPrice: 260,  tag: 'Essential',
     desc: 'Universal 3-pin socket with shutter protection. Compatible with all plug types.' },
@@ -92,11 +96,11 @@ export const products = [
     desc: 'Double-pole isolator switch for AC and water heater circuits. 32A rating.' },
 
   // ── PIPES ──
-  { id: 21, category: 'pipes',    image: '/cat_pipes.png',    name: 'PVC Conduit Pipe 20mm (3m)',      brand: 'Plato',   price: 65,   originalPrice: 80,   tag: 'Standard',
+  { id: 21, category: 'pipes',    image: img('PVC Conduit Pipe 20mm (3m).png'),      name: 'PVC Conduit Pipe 20mm (3m)',      brand: 'Plato',   price: 65,   originalPrice: 80,   tag: 'Standard',
     desc: 'ISI marked 20mm grey PVC conduit pipe. Rigid, fire-retardant, UV stabilised.' },
-  { id: 22, category: 'pipes',    image: '/cat_pipes.png',    name: 'PVC Conduit Pipe 25mm (3m)',      brand: 'Plato',   price: 85,   originalPrice: 105,  tag: 'Standard',
+  { id: 22, category: 'pipes',    image: img('PVC Conduit Pipe 20mm (3m).png'),      name: 'PVC Conduit Pipe 25mm (3m)',      brand: 'Plato',   price: 85,   originalPrice: 105,  tag: 'Standard',
     desc: '25mm conduit pipe for concealed and surface wiring. Impact resistant.' },
-  { id: 23, category: 'pipes',    image: '/cat_pipes.png',    name: 'PVC Conduit Pipe 32mm (3m)',      brand: 'Plato',   price: 110,  originalPrice: 135,  tag: 'Heavy Gauge',
+  { id: 23, category: 'pipes',    image: img('PVC Conduit Pipe 32mm (3m).png'),      name: 'PVC Conduit Pipe 32mm (3m)',      brand: 'Plato',   price: 110,  originalPrice: 135,  tag: 'Heavy Gauge',
     desc: '32mm large bore conduit for cable trays and underground duct work.' },
   { id: 24, category: 'pipes',    image: '/cat_pipes.png',    name: 'PVC Elbow 90° 20mm (Pack of 10)',brand: 'Plato',   price: 45,   originalPrice: 60,   tag: 'Value Pack',
     desc: '90-degree elbow bends for PVC conduit 20mm. Pack of 10 pieces.' },
@@ -106,7 +110,7 @@ export const products = [
     desc: 'CPVC pipe rated up to 93°C. Ideal for solar heater and hot water plumbing.' },
   { id: 27, category: 'pipes',    image: '/cat_pipes.png',    name: 'uPVC Pressure Pipe 1" Class 4',   brand: 'Aquatek', price: 145,  originalPrice: 180,  tag: 'Pressure',
     desc: 'uPVC Class 4 pressure pipe for overhead water tanks and supply lines.' },
-  { id: 28, category: 'pipes',    image: '/cat_pipes.png',    name: 'Flexible Conduit Pipe 20mm (5m)',brand: 'Plato',   price: 195,  originalPrice: 240,  tag: 'Flexible',
+  { id: 28, category: 'pipes',    image: img('PVC Conduit Pipe 20mm (3m).png'),      name: 'Flexible Conduit Pipe 20mm (5m)',brand: 'Plato',   price: 195,  originalPrice: 240,  tag: 'Flexible',
     desc: 'Corrugated flexible conduit pipe for machine wiring and vibration areas.' },
   { id: 29, category: 'pipes',    image: '/cat_pipes.png',    name: 'PVC Reducer 25mm to 20mm (10pk)',brand: 'Plato',   price: 35,   originalPrice: 48,   tag: 'Fitting',
     desc: 'Push-fit reducer coupling for joining different sized conduit pipes.' },
@@ -114,7 +118,7 @@ export const products = [
     desc: 'Screw-fix saddle clips for surface conduit mounting. Pack of 50.' },
 
   // ── LIGHTING ──
-  { id: 31, category: 'lighting', image: '/cat_lighting.png', name: 'LED Bulb 9W Warm White (Pack 4)', brand: 'Crompton',price: 299,  originalPrice: 380,  tag: 'Bestseller',
+  { id: 31, category: 'lighting', image: img('LED Bulb 9W Warm White (Pack 4).png'),  name: 'LED Bulb 9W Warm White (Pack 4)', brand: 'Crompton',price: 299,  originalPrice: 380,  tag: 'Bestseller',
     desc: '9W LED bulb with 900 lm output. B22 base. 3000K warm white. 25000 hr life.' },
   { id: 32, category: 'lighting', image: '/cat_lighting.png', name: 'LED Tube Light 20W 4ft',           brand: 'Crompton',price: 380,  originalPrice: 480,  tag: 'Office',
     desc: '20W LED batten, replaces 40W fluorescent. 6500K cool daylight. 3 yr warranty.' },
@@ -136,7 +140,7 @@ export const products = [
     desc: '5W E14 candle LED bulb. 500 lm, warm white 3000K. For chandeliers & fans.' },
 
   // ── SAFETY ──
-  { id: 41, category: 'safety',   image: '/cat_safety.png',   name: 'MCB 6A Single Pole (C-Curve)',    brand: 'Legrand', price: 185,  originalPrice: 230,  tag: 'Essential',
+  { id: 41, category: 'safety',   image: img('MCB 6A Single Pole (C-Curve).png'),    name: 'MCB 6A Single Pole (C-Curve)',    brand: 'Legrand', price: 185,  originalPrice: 230,  tag: 'Essential',
     desc: '6A single-pole MCB for lighting circuits. C-curve. 6kA breaking capacity.' },
   { id: 42, category: 'safety',   image: '/cat_safety.png',   name: 'MCB 16A Single Pole (C-Curve)',   brand: 'Legrand', price: 195,  originalPrice: 240,  tag: 'Popular',
     desc: '16A SP MCB for socket and appliance circuits. IS/IEC 60898-1 certified.' },
@@ -158,21 +162,21 @@ export const products = [
     desc: 'Combined MCB+RCCB device. Overload, short-circuit and earth fault protection.' },
 
   // ── SWITCHES: GM, Havells, Anchor, Fybros, Lisha ──
-  { id: 51, category: 'switches', image: '/cat_switches.png', name: 'GM 6A One-Way Modular Switch',     brand: 'GM',      price: 95,  originalPrice: 120,  tag: 'Popular',
+  { id: 51, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'GM 6A One-Way Modular Switch',     brand: 'GM',      price: 95,  originalPrice: 120,  tag: 'Popular',
     desc: 'GM 6A one-way modular switch with silver contacts. Sleek gloss-white finish for residential use.' },
-  { id: 52, category: 'switches', image: '/cat_switches.png', name: 'GM 16A Heavy Duty Switch',         brand: 'GM',      price: 145, originalPrice: 180,  tag: 'Heavy Duty',
+  { id: 52, category: 'switches', image: img('16A Two-Way Switch.png'),               name: 'GM 16A Heavy Duty Switch',         brand: 'GM',      price: 145, originalPrice: 180,  tag: 'Heavy Duty',
     desc: 'GM 16A two-way heavy duty switch. Ideal for ACs, geysers and high-load circuits.' },
-  { id: 53, category: 'switches', image: '/cat_switches.png', name: 'GM 6A 3-Pin Socket with Shutter',  brand: 'GM',      price: 128, originalPrice: 160,  tag: 'Safe',
+  { id: 53, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'GM 6A 3-Pin Socket with Shutter',  brand: 'GM',      price: 128, originalPrice: 160,  tag: 'Safe',
     desc: 'GM 6A socket with child-safety shutters. Universal pin acceptance.' },
-  { id: 54, category: 'switches', image: '/cat_switches.png', name: 'Havells Crabtree 6A Switch',       brand: 'Havells', price: 210, originalPrice: 260,  tag: 'Premium',
+  { id: 54, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'Havells Crabtree 6A Switch',       brand: 'Havells', price: 210, originalPrice: 260,  tag: 'Premium',
     desc: 'Havells Crabtree modular switch with piano-style rocker. ISI marked, 6A rated.' },
-  { id: 55, category: 'switches', image: '/cat_switches.png', name: 'Havells 16A 3-Pin Socket',         brand: 'Havells', price: 285, originalPrice: 340,  tag: 'Reliable',
+  { id: 55, category: 'switches', image: img('16A Two-Way Switch.png'),               name: 'Havells 16A 3-Pin Socket',         brand: 'Havells', price: 285, originalPrice: 340,  tag: 'Reliable',
     desc: 'Havells 16A heavy-duty socket with safety shutters. Fits all standard modular plates.' },
-  { id: 56, category: 'switches', image: '/cat_switches.png', name: 'Havells Electronic Fan Dimmer',    brand: 'Havells', price: 380, originalPrice: 460,  tag: 'Energy Saving',
+  { id: 56, category: 'switches', image: img('16A Two-Way Switch.png'),               name: 'Havells Electronic Fan Dimmer',    brand: 'Havells', price: 380, originalPrice: 460,  tag: 'Energy Saving',
     desc: 'Havells electronic fan speed dimmer. Step-less speed control, no energy waste.' },
-  { id: 57, category: 'switches', image: '/cat_switches.png', name: 'Anchor Roma 6A One-Way Switch',    brand: 'Anchor',  price: 88,  originalPrice: 110,  tag: 'Affordable',
+  { id: 57, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'Anchor Roma 6A One-Way Switch',    brand: 'Anchor',  price: 88,  originalPrice: 110,  tag: 'Affordable',
     desc: 'Anchor Roma classic 6A modular switch. Most popular choice for residential projects.' },
-  { id: 58, category: 'switches', image: '/cat_switches.png', name: 'Anchor Roma 6A 3-Pin Socket',      brand: 'Anchor',  price: 112, originalPrice: 140,  tag: 'Value',
+  { id: 58, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'Anchor Roma 6A 3-Pin Socket',      brand: 'Anchor',  price: 112, originalPrice: 140,  tag: 'Value',
     desc: 'Anchor Roma 3-pin socket with shutters. Snap-fit to standard modular boxes.' },
   { id: 59, category: 'switches', image: '/cat_switches.png', name: 'Fybros 6A Modular Switch',         brand: 'Fybros',  price: 78,  originalPrice: 98,   tag: 'Budget',
     desc: 'Fybros 6A modular switch. Sturdy polycarbonate body. ISI marked. Budget-friendly.' },
@@ -247,7 +251,7 @@ export const products = [
     desc: 'Havells Lifeline FRLS copper wire 2.5 sq mm. Zero halogen, eco-friendly cable.' },
 
   // ── SAFETY: Havells, Siemens, Schneider, EBC ──
-  { id: 85, category: 'safety',   image: '/cat_safety.png',   name: 'Havells 6A MCB Single Pole',       brand: 'Havells',  price: 195,  originalPrice: 240,  tag: 'Popular',
+  { id: 85, category: 'safety',   image: img('MCB 6A Single Pole (C-Curve).png'),    name: 'Havells 6A MCB Single Pole',       brand: 'Havells',  price: 195,  originalPrice: 240,  tag: 'Popular',
     desc: 'Havells MCB 6A single-pole C-curve. 10kA breaking capacity. ISI marked.' },
   { id: 86, category: 'safety',   image: '/cat_safety.png',   name: 'Havells RCCB 25A 30mA 2-Pole',     brand: 'Havells',  price: 980,  originalPrice: 1250, tag: 'Protection',
     desc: 'Havells RCCB 25A/30mA double-pole. Earth leakage protection for all circuits.' },
@@ -257,9 +261,9 @@ export const products = [
     desc: 'Schneider Electric iC60N 32A MCB. IEC/EN 60898-1 compliant. DIN rail mount.' },
 
   // ── EBC — from EBC Catalouge 28-08-24 ──
-  { id: 94, category: 'switches', image: '/cat_switches.png', name: 'EBC 6A One-Way Modular Switch',     brand: 'EBC',      price: 72,   originalPrice: 95,   tag: 'Budget',
+  { id: 94, category: 'switches', image: img('6A One-Way Modular Switch.png'),        name: 'EBC 6A One-Way Modular Switch',     brand: 'EBC',      price: 72,   originalPrice: 95,   tag: 'Budget',
     desc: 'EBC 6A one-way modular switch. Polycarbonate body, silver contacts. ISI marked. Budget-friendly choice.' },
-  { id: 95, category: 'switches', image: '/cat_switches.png', name: 'EBC 16A Two-Way Switch',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Value',
+  { id: 95, category: 'switches', image: img('16A Two-Way Switch.png'),               name: 'EBC 16A Two-Way Switch',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Value',
     desc: 'EBC 16A two-way modular switch for staircases & passages. Heavy-duty silver contacts.' },
   { id: 96, category: 'switches', image: '/cat_switches.png', name: 'EBC 6A 3-Pin Socket with Shutter',  brand: 'EBC',      price: 98,   originalPrice: 130,  tag: 'Safe',
     desc: 'EBC 6A universal 3-pin socket with child-safety shutters. ISI marked.' },
@@ -267,7 +271,7 @@ export const products = [
     desc: 'EBC 16A round-pin socket for ACs, washing machines. Safety shutter, snap-fit installation.' },
   { id: 98, category: 'switches', image: '/cat_switches.png', name: 'EBC Fan Speed Regulator',           brand: 'EBC',      price: 145,  originalPrice: 190,  tag: 'Economy',
     desc: 'EBC electronic fan speed regulator. Step-less control, cool operation, low power loss.' },
-  { id: 99, category: 'safety',   image: '/cat_safety.png',  name: 'EBC 6A MCB Single Pole',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Economy',
+  { id: 99, category: 'safety',   image: img('MCB 6A Single Pole (C-Curve).png'),    name: 'EBC 6A MCB Single Pole',            brand: 'EBC',      price: 110,  originalPrice: 145,  tag: 'Economy',
     desc: 'EBC 6A single-pole MCB C-curve. ISI marked. 6kA breaking capacity for residential circuits.' },
   { id: 100,category: 'safety',   image: '/cat_safety.png',  name: 'EBC 16A MCB Single Pole',           brand: 'EBC',      price: 125,  originalPrice: 165,  tag: 'Popular',
     desc: 'EBC 16A SP MCB for socket and appliance circuits. IS/IEC 60898-1 certified.' },
