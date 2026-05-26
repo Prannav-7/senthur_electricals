@@ -5,30 +5,54 @@ import { useScrollReveal } from '../hooks/useAnimations';
 import './Brands.css';
 
 const brands = [
-  { name: 'Polycab',        initial: 'PC', category: 'Wires & Cables',         color: '#e63946', productCount: 7,
-    products: ['Copper Flexible Wires', 'Armoured Cables', 'FRLS Wires', 'Earth Wires'] },
-  { name: 'Legrand',        initial: 'LG', category: 'Switches & MCBs',        color: '#1d7dd8', productCount: 12,
-    products: ['Modular Switches', 'MCBs', 'RCCBs', 'Distribution Boards'] },
-  { name: 'Havells',        initial: 'HV', category: 'Switches, Fans & MCBs',  color: '#e63000', productCount: 10,
-    products: ['Crabtree Switches', 'BLDC Fans', 'LED Panels', 'MCBs & RCCBs'] },
-  { name: 'Crompton',       initial: 'CR', category: 'Fans & Lighting',        color: '#f4a261', productCount: 8,
-    products: ['Ceiling Fans', 'Exhaust Fans', 'LED Bulbs', 'LED Tube Lights'] },
-  { name: 'Atomberg',       initial: 'AT', category: 'BLDC Smart Fans',        color: '#00b4d8', productCount: 2,
-    products: ['Renesa BLDC Fan', 'Efficio+ BLDC Fan', 'Remote Fans', 'Smart Series'] },
-  { name: 'Orient Electric',initial: 'OE', category: 'Fans & Lighting',        color: '#f77f00', productCount: 4,
-    products: ['Aeroquiet Ceiling Fan', 'Apex-FX Fan', 'Pedestal Fans', 'LED Bulbs'] },
-  { name: 'Philips',        initial: 'PH', category: 'LED Lighting',           color: '#0057b8', productCount: 3,
-    products: ['LED Bulbs', 'LED Battens', 'Flood Lights', 'Downlights'] },
-  { name: 'Wipro',          initial: 'WP', category: 'LED Lighting',           color: '#007e5e', productCount: 3,
-    products: ['Garnet LED Bulbs', 'LED Tubes', 'RGB Strip Lights', 'Flood Lights'] },
-  { name: 'GM',             initial: 'GM', category: 'Switches & Sockets',     color: '#0077b6', productCount: 3,
-    products: ['Modular Switches', '3-Pin Sockets', 'Switch Plates', 'Accessories'] },
-  { name: 'Anchor',         initial: 'AN', category: 'Modular Switches',       color: '#2dc653', productCount: 2,
-    products: ['Roma Switches', 'Roma Sockets', 'Switch Plates', 'Accessories'] },
-  { name: 'Finolex',        initial: 'FX', category: 'Wires & Cables',         color: '#c1121f', productCount: 2,
-    products: ['FR Copper Wire', '2.5 sq mm Wire', 'PVC Cables', 'Industrial Cables'] },
-  { name: 'Siemens',        initial: 'SI', category: 'MCBs & Breakers',        color: '#009999', productCount: 1,
-    products: ['5SL MCB Series', 'RCCB Devices', 'Distribution Boards', 'Contactors'] },
+  {
+    name: 'Polycab', initial: 'PC', category: 'Wires & Cables', color: '#e63946', productCount: 7,
+    products: ['Copper Flexible Wires', 'Armoured Cables', 'FRLS Wires', 'Earth Wires']
+  },
+  {
+    name: 'Legrand', initial: 'LG', category: 'Switches & MCBs', color: '#1d7dd8', productCount: 12,
+    products: ['Modular Switches', 'MCBs', 'RCCBs', 'Distribution Boards']
+  },
+  {
+    name: 'Havells', initial: 'HV', category: 'Switches, Fans & MCBs', color: '#e63000', productCount: 10,
+    products: ['Crabtree Switches', 'BLDC Fans', 'LED Panels', 'MCBs & RCCBs']
+  },
+  {
+    name: 'Crompton', initial: 'CR', category: 'Fans & Lighting', color: '#f4a261', productCount: 8,
+    products: ['Ceiling Fans', 'Exhaust Fans', 'LED Bulbs', 'LED Tube Lights']
+  },
+  {
+    name: 'Atomberg', initial: 'AT', category: 'BLDC Smart Fans', color: '#00b4d8', productCount: 2,
+    products: ['Renesa BLDC Fan', 'Efficio+ BLDC Fan', 'Remote Fans', 'Smart Series']
+  },
+  {
+    name: 'Orient Electric', initial: 'OE', category: 'Fans & Lighting', color: '#f77f00', productCount: 4,
+    products: ['Aeroquiet Ceiling Fan', 'Apex-FX Fan', 'Pedestal Fans', 'LED Bulbs']
+  },
+  {
+    name: 'Philips', initial: 'PH', category: 'LED Lighting', color: '#0057b8', productCount: 3,
+    products: ['LED Bulbs', 'LED Battens', 'Flood Lights', 'Downlights']
+  },
+  {
+    name: 'Wipro', initial: 'WP', category: 'LED Lighting', color: '#007e5e', productCount: 3,
+    products: ['Garnet LED Bulbs', 'LED Tubes', 'RGB Strip Lights', 'Flood Lights']
+  },
+  {
+    name: 'GM', initial: 'GM', category: 'Switches & Sockets', color: '#0077b6', productCount: 3,
+    products: ['Modular Switches', '3-Pin Sockets', 'Switch Plates', 'Accessories']
+  },
+  {
+    name: 'Anchor', initial: 'AN', category: 'Modular Switches', color: '#2dc653', productCount: 2,
+    products: ['Roma Switches', 'Roma Sockets', 'Switch Plates', 'Accessories']
+  },
+  {
+    name: 'Finolex', initial: 'FX', category: 'Wires & Cables', color: '#c1121f', productCount: 2,
+    products: ['FR Copper Wire', '2.5 sq mm Wire', 'PVC Cables', 'Industrial Cables']
+  },
+  {
+    name: 'Siemens', initial: 'SI', category: 'MCBs & Breakers', color: '#009999', productCount: 1,
+    products: ['5SL MCB Series', 'RCCB Devices', 'Distribution Boards', 'Contactors']
+  },
 ];
 
 export default function Brands() {

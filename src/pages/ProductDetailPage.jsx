@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Heart, Zap, ArrowLeft, CheckCircle, Phone, Package, Tag, Star } from 'lucide-react';
+import { ShoppingCart, CalendarCheck, Zap, ArrowLeft, CheckCircle, Phone, Package, Tag, Star } from 'lucide-react';
 import { products, categories } from '../components/Products';
 import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
 import './ProductDetailPage.css';
 
 /* ── Per-category spec generator ── */
@@ -11,9 +10,6 @@ function getSpecs(p) {
   const base = [
     { label: 'Brand',    value: p.brand },
     { label: 'Category', value: categories.find(c => c.id === p.category)?.label || p.category },
-    { label: 'MRP',      value: `₹${p.originalPrice.toLocaleString()}` },
-    { label: 'Our Price',value: `₹${p.price.toLocaleString()}` },
-    { label: 'You Save', value: `₹${(p.originalPrice - p.price).toLocaleString()} (${Math.round((1 - p.price/p.originalPrice)*100)}%)` },
   ];
   const extra = {
     wiring: [
@@ -71,7 +67,6 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { toggle, isWishlisted } = useWishlist();
 
   const product = products.find(p => p.id === Number(id));
 
@@ -86,16 +81,17 @@ export default function ProductDetailPage() {
     );
   }
 
-  const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
-  const wishlisted = isWishlisted(product.id);
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-  const specs = getSpecs(product);
+  const related  = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+  const specs    = getSpecs(product);
   const features = getFeatures(product);
 
   const handleCart = () => addToCart(product);
-  const handleWish = () => toggle(product);
+  const handleDemo = () => {
+    const msg = `Hi! I'd like to book a demo for:\n\u2022 ${product.name} (${product.brand})\n\nPlease let me know available time slots.`;
+    window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
+  };
   const handleBuy = () => {
-    const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\nPrice: ₹${product.price.toLocaleString()}\n\nPlease confirm availability.`;
+    const msg = `Hi! I want to buy:\n\u2022 ${product.name} (${product.brand})\n\nPlease confirm availability.`;
     window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -117,7 +113,6 @@ export default function ProductDetailPage() {
           <div className="pd-img-wrap">
             <img src={product.image} alt={product.name} className="pd-img" />
             <span className="pd-img-tag">{product.tag}</span>
-            {discount > 0 && <span className="pd-img-discount">-{discount}% OFF</span>}
           </div>
           {/* Trust badges */}
           <div className="pd-badges">
@@ -136,12 +131,6 @@ export default function ProductDetailPage() {
 
           <h1 className="pd-title">{product.name}</h1>
 
-          <div className="pd-price-row">
-            <span className="pd-price">₹{product.price.toLocaleString()}</span>
-            <span className="pd-original">₹{product.originalPrice.toLocaleString()}</span>
-            {discount > 0 && <span className="pd-save">Save {discount}%</span>}
-          </div>
-
           <p className="pd-desc">{product.desc}</p>
 
           {/* Features */}
@@ -159,9 +148,8 @@ export default function ProductDetailPage() {
             <button className="pd-btn pd-btn--cart" onClick={handleCart} id="pd-cart-btn">
               <ShoppingCart size={18} /> Add to Cart
             </button>
-            <button className={`pd-btn pd-btn--wish ${wishlisted ? 'pd-btn--wish-active' : ''}`} onClick={handleWish} id="pd-wish-btn">
-              <Heart size={18} fill={wishlisted ? 'currentColor' : 'none'} />
-              {wishlisted ? 'Wishlisted' : 'Wishlist'}
+            <button className="pd-btn pd-btn--demo" onClick={handleDemo} id="pd-demo-btn">
+              <CalendarCheck size={18} /> Book a Demo
             </button>
             <button className="pd-btn pd-btn--buy" onClick={handleBuy} id="pd-buy-btn">
               <Zap size={18} /> Buy Now
@@ -193,20 +181,14 @@ export default function ProductDetailPage() {
           <h2 className="pd-section-heading"><Tag size={18} /> Related Products</h2>
           <div className="pd-related-grid">
             {related.map(rp => {
-              const rdiscount = Math.round((1 - rp.price / rp.originalPrice) * 100);
               return (
                 <Link to={`/products/${rp.id}`} key={rp.id} className="pd-related-card" onClick={() => window.scrollTo({top:0})}>
                   <div className="pd-related-img-wrap">
                     <img src={rp.image} alt={rp.name} className="pd-related-img" />
-                    {rdiscount > 0 && <span className="pd-related-discount">-{rdiscount}%</span>}
                   </div>
                   <div className="pd-related-body">
                     <span className="pd-related-brand">{rp.brand}</span>
                     <h4 className="pd-related-name">{rp.name}</h4>
-                    <div className="pd-related-prices">
-                      <span className="pd-related-price">₹{rp.price.toLocaleString()}</span>
-                      <span className="pd-related-orig">₹{rp.originalPrice.toLocaleString()}</span>
-                    </div>
                   </div>
                 </Link>
               );

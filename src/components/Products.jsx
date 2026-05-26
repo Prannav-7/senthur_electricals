@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Heart, Zap, ArrowRight, X, FileText, Download } from 'lucide-react';
+import { ShoppingCart, CalendarCheck, Zap, ArrowRight, X, FileText, Download } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
 import { useScrollReveal } from '../hooks/useAnimations';
 import './Products.css';
 
@@ -287,9 +286,8 @@ function AddedToast({ show, name }) {
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const { toggle, isWishlisted } = useWishlist();
   const [toastVisible, setToastVisible] = useState(false);
-  const wishlisted = isWishlisted(product.id);
+  const [demoBooked,   setDemoBooked]   = useState(false);
 
   const handleAddToCart = (e) => {
     e.stopPropagation(); e.preventDefault();
@@ -298,22 +296,26 @@ function ProductCard({ product }) {
     setTimeout(() => setToastVisible(false), 1800);
   };
 
-  const handleWishlist = (e) => {
+  const handleDemo = (e) => {
     e.stopPropagation(); e.preventDefault();
-    toggle(product);
+    const msg = `Hi! I'd like to book a demo for:\n\u2022 ${product.name} (${product.brand})\n\nPlease let me know available time slots.`;
+    window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
+    setDemoBooked(true);
+    setTimeout(() => setDemoBooked(false), 2000);
   };
 
   const handleBuyNow = (e) => {
     e.stopPropagation(); e.preventDefault();
-    const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\nPrice: ₹${product.price.toLocaleString()}\n\nPlease confirm availability.`;
+    const msg = `Hi! I want to buy:\n\u2022 ${product.name} (${product.brand})\n\nPlease confirm availability.`;
     window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
   };
-
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
 
   return (
     <div className="product-card-v2">
       <AddedToast show={toastVisible} name={product.name} />
+      {demoBooked && (
+        <div className="added-toast added-toast--demo"><CalendarCheck size={14} /> Demo Requested!</div>
+      )}
 
       {/* Clickable image */}
       <Link to={`/products/${product.id}`} className="pcv2__img-link">
@@ -321,17 +323,18 @@ function ProductCard({ product }) {
           <img src={product.image} alt={product.name} className="pcv2__img" loading="lazy" />
           <div className="pcv2__overlay" />
           <span className="pcv2__tag">{product.tag}</span>
-          {discount > 0 && <span className="pcv2__discount">-{discount}%</span>}
           <div className="pcv2__view-overlay">View Details →</div>
         </div>
       </Link>
 
+      {/* Book a Demo floating button */}
       <button
-        className={`pcv2__wishlist-btn ${wishlisted ? 'pcv2__wishlist-btn--active' : ''}`}
-        onClick={handleWishlist}
-        aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+        className="pcv2__demo-btn"
+        onClick={handleDemo}
+        aria-label={`Book a demo for ${product.name}`}
       >
-        <Heart size={16} fill={wishlisted ? 'currentColor' : 'none'} />
+        <CalendarCheck size={14} />
+        <span>Book Demo</span>
       </button>
 
       {/* Body */}
@@ -340,15 +343,13 @@ function ProductCard({ product }) {
         <Link to={`/products/${product.id}`}><h3 className="pcv2__name">{product.name}</h3></Link>
         <p className="pcv2__desc">{product.desc}</p>
 
-
-
         <div className="pcv2__actions">
           <button className="pcv2__btn pcv2__btn--cart" onClick={handleAddToCart} id={`cart-btn-${product.id}`}>
             <ShoppingCart size={14} /> Cart
           </button>
-          <button className="pcv2__btn pcv2__btn--wish" onClick={handleWishlist} id={`wish-btn-${product.id}`}>
-            <Heart size={14} fill={wishlisted ? 'currentColor' : 'none'} />
-            {wishlisted ? 'Saved' : 'Wishlist'}
+          <button className="pcv2__btn pcv2__btn--demo" onClick={handleDemo} id={`demo-btn-${product.id}`}>
+            <CalendarCheck size={14} />
+            Book Demo
           </button>
           <button className="pcv2__btn pcv2__btn--buy" onClick={handleBuyNow} id={`buy-btn-${product.id}`}>
             <Zap size={14} /> Buy Now

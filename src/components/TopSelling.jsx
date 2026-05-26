@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Heart, Zap, Crown, TrendingUp, ArrowRight, ArrowLeft, Star } from 'lucide-react';
+import { ShoppingCart, CalendarCheck, Zap, Crown, TrendingUp, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext';
 import { useScrollReveal } from '../hooks/useAnimations';
 import { products } from './Products';
 import './TopSelling.css';
@@ -29,25 +28,22 @@ const topProducts = topSellingIds.map(id => products.find(p => p.id === id)).fil
 const topBrands = ['All', ...Array.from(new Set(topProducts.map(p => p.brand)))];
 
 const brandAccents = {
-  'All':      '#f97316',
-  'Polycab':  '#e63946',
-  'Havells':  '#e63000',
+  'All': '#f97316',
+  'Polycab': '#e63946',
+  'Havells': '#e63000',
   'Crompton': '#f4a261',
-  'Legrand':  '#1d7dd8',
-  'Philips':  '#0057b8',
+  'Legrand': '#1d7dd8',
+  'Philips': '#0057b8',
   'Atomberg': '#00b4d8',
-  'Finolex':  '#c1121f',
-  'Wipro':    '#007e5e',
-  'Anchor':   '#2dc653',
+  'Finolex': '#c1121f',
+  'Wipro': '#007e5e',
+  'Anchor': '#2dc653',
 };
 
 function TopProductCard({ product, index }) {
   const { addToCart } = useCart();
-  const { toggle, isWishlisted } = useWishlist();
-  const wishlisted = isWishlisted(product.id);
-  const [added, setAdded] = useState(false);
-
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+  const [added, setAdded]           = useState(false);
+  const [demoBooked, setDemoBooked] = useState(false);
 
   const handleAdd = (e) => {
     e.preventDefault(); e.stopPropagation();
@@ -56,14 +52,17 @@ function TopProductCard({ product, index }) {
     setTimeout(() => setAdded(false), 1500);
   };
 
-  const handleWish = (e) => {
+  const handleDemo = (e) => {
     e.preventDefault(); e.stopPropagation();
-    toggle(product);
+    const msg = `Hi! I'd like to book a demo for:\n\u2022 ${product.name} (${product.brand})\n\nPlease let me know available time slots.`;
+    window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
+    setDemoBooked(true);
+    setTimeout(() => setDemoBooked(false), 2000);
   };
 
   const handleBuy = (e) => {
     e.preventDefault(); e.stopPropagation();
-    const msg = `Hi! I want to buy:\n• ${product.name} (${product.brand})\n\nPlease confirm availability.`;
+    const msg = `Hi! I want to buy:\n\u2022 ${product.name} (${product.brand})\n\nPlease confirm availability.`;
     window.open(`https://wa.me/919677334525?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
@@ -75,18 +74,23 @@ function TopProductCard({ product, index }) {
       {added && (
         <div className="ts-card__toast"><Zap size={12} /> Added to cart!</div>
       )}
-      
+      {demoBooked && (
+        <div className="ts-card__toast ts-card__toast--demo"><CalendarCheck size={12} /> Demo Requested!</div>
+      )}
+
       <div className="ts-card__rank">
         <Crown size={11} />
         <span>#{index + 1}</span>
       </div>
 
+      {/* Book a Demo button */}
       <button
-        className={`ts-card__heart ${wishlisted ? 'ts-card__heart--active' : ''}`}
-        onClick={handleWish}
-        aria-label="Toggle wishlist"
+        className="ts-card__demo-btn"
+        onClick={handleDemo}
+        aria-label={`Book a demo for ${product.name}`}
       >
-        <Heart size={14} fill={wishlisted ? 'currentColor' : 'none'} />
+        <CalendarCheck size={12} />
+        <span>Book Demo</span>
       </button>
 
       <Link to={`/products/${product.id}`} className="ts-card__img-link">
@@ -95,10 +99,6 @@ function TopProductCard({ product, index }) {
           <div className="ts-card__img-overlay">View Details →</div>
         </div>
       </Link>
-
-      {discount > 0 && (
-        <span className="ts-card__discount">-{discount}%</span>
-      )}
 
       <div className="ts-card__body">
         <div className="ts-card__brand-row">

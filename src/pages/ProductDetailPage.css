@@ -107,9 +107,8 @@
 }
 .pd-btn--cart { background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.3); color: var(--orange-primary); }
 .pd-btn--cart:hover { background: rgba(249,115,22,0.22); transform: translateY(-2px); }
-.pd-btn--wish { background: rgba(248,65,65,0.08); border-color: rgba(248,65,65,0.25); color: #f87171; }
-.pd-btn--wish:hover { background: rgba(248,65,65,0.16); transform: translateY(-2px); }
-.pd-btn--wish-active { background: rgba(248,65,65,0.18); border-color: #f87171; }
+.pd-btn--demo { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.3); color: #a5b4fc; }
+.pd-btn--demo:hover { background: rgba(99,102,241,0.22); border-color: rgba(99,102,241,0.6); color: #fff; transform: translateY(-2px); }
 .pd-btn--buy { background: var(--gradient-primary); color: white; box-shadow: 0 4px 16px rgba(249,115,22,0.35); }
 .pd-btn--buy:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(249,115,22,0.5); }
 
